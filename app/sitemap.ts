@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { insights } from "@/lib/insights";
 
 const legacyRoutes = [
   "/blog", "/chapters", "/contact", "/resources", "/author",
@@ -15,8 +16,9 @@ const legacyRoutes = [
 ];
 
 export default function sitemap():MetadataRoute.Sitemap {
-  const base = "https://padsplitplaybookbook.com";
-  const routes = ["", "/padsplit-guide", "/underwriting", "/operations", "/insights", "/about", ...legacyRoutes];
+  const base = "https://padsplit-playbook.vercel.app";
+  const insightRoutes = insights.map(({ slug }) => `/insights/${slug}`);
+  const routes = ["", "/padsplit-guide", "/underwriting", "/operations", "/insights", "/about", ...insightRoutes, ...legacyRoutes];
   return routes.map((route) => ({
     url: `${base}${route}`,
     lastModified: new Date(),

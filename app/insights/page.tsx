@@ -1,4 +1,29 @@
-import type { Metadata } from "next";import Link from "next/link";
-export const metadata:Metadata={title:"Co-Living Insights",description:"Research notes from Dr. Connor Robertson on PadSplit, workforce co-living, property selection, compliance, and room-rental operations.",alternates:{canonical:"/insights"}};
-const posts=[["Property selection","How to tell if a floor plan supports shared living","Room count is not the first filter. Start with legality, circulation, bathrooms, parking, and privacy.","/padsplit-guide"],["Finance","Why gross room revenue is not your return","A property can produce more top-line revenue and still deliver a fragile result after full operating costs.","/underwriting"],["Operations","The twice-monthly walkthrough as an operating ritual","A repeatable inspection can surface safety, maintenance, cleanliness, and resident-experience issues early.","/operations"],["Strategy","The best alternative use test","Every specialized conversion should be compared with the property’s most credible conventional use.","/underwriting"]];
-export default function Insights(){return <><header className="page-hero"><div className="breadcrumb"><Link href="/">Home</Link> / Insights</div><p className="eyebrow">Research notes</p><h1 className="display">Better questions for <em>better</em> housing.</h1><p className="lede">Concise field notes on selecting, underwriting, converting, and operating workforce co-living properties.</p></header><section className="section"><div className="cards-2">{posts.map(([tag,title,desc,href])=><Link className="article-card" href={href} key={title}><span className="tag">{tag}</span><h3>{title}</h3><p>{desc}</p><span className="read">Read the briefing →</span></Link>)}</div></section></>}
+import type { Metadata } from "next";
+import Link from "next/link";
+import { insights, topics } from "@/lib/insights";
+
+export const metadata: Metadata = {
+  title: "Co-Living Learning Library",
+  description: "Explore 100 evidence-led guides to PadSplit property selection, underwriting, conversion, compliance, resident operations, and fallback planning.",
+  alternates: { canonical: "/insights" },
+};
+
+export default function Insights() {
+  return <>
+    <header className="page-hero">
+      <div className="breadcrumb"><Link href="/">Home</Link> / Insights</div>
+      <p className="eyebrow">100 guides · 10 topic clusters</p>
+      <h1 className="display">The co-living <em>decision</em> library.</h1>
+      <p className="lede">Evidence-led field notes for testing the address, conversion, economics, safety, resident experience, and fallback plan before capital is committed.</p>
+    </header>
+    <section className="section insight-library">
+      {topics.map((topic) => <section className="insight-cluster" id={topic.slug} key={topic.slug}>
+        <div className="cluster-heading"><p className="eyebrow">Topic cluster</p><h2 className="section-title">{topic.label}</h2><p>{topic.focus}.</p></div>
+        <div className="insight-grid">{insights.filter((item) => item.slug.startsWith(`${topic.slug}-`)).map((item) =>
+          <Link className="insight-card" href={`/insights/${item.slug}`} key={item.slug}>
+            <span>{String(item.number).padStart(3, "0")} · {item.lens}</span><h3>{item.label}: {item.lens}</h3><p>{item.goal}.</p><b>Open the guide →</b>
+          </Link>)}</div>
+      </section>)}
+    </section>
+  </>;
+}
