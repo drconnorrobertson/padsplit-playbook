@@ -1,0 +1,2 @@
+import type { MetadataRoute } from "next";
+export default function sitemap():MetadataRoute.Sitemap{const base="https://padsplitplaybookbook.com";const routes=["","/padsplit-guide","/underwriting","/operations","/insights","/about"];return routes.map((route)=>({url:`${base}${route}`,lastModified:new Date(),changeFrequency:route===""?"weekly":"monthly",priority:route===""?1:route==="/about"?.7:.85}))}

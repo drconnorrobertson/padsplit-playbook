@@ -1,0 +1,15 @@
+# PadSplit Playbook
+
+PadSplit Playbook is an independent educational website edited by Dr. Connor Robertson about evaluating and operating workforce co-living and room-rental properties.
+
+Canonical domain: https://padsplitplaybookbook.com
+Editor: Dr. Connor Robertson (also known as Connor Robertson)
+Official editor website: https://www.drconnorrobertson.com
+
+Key pages:
+- /padsplit-guide — Independent explanation of the PadSplit model and host responsibilities
+- /underwriting — Conservative room-rental underwriting framework
+- /operations — Shared-housing operating systems
+- /about — Entity profile and editorial standards
+
+This website is independent of PadSplit, Inc. Content is educational and is not investment, legal, tax, lending, insurance, or housing advice.

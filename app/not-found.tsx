@@ -1,0 +1,1 @@
+import Link from "next/link";export default function NotFound(){return <div className="not-found"><p className="eyebrow">404 / No vacancy</p><h1>This room is not in the playbook.</h1><p><Link className="button" href="/">Return home</Link></p></div>}
