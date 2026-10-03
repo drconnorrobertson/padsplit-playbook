@@ -21,3 +21,6 @@ p, blockquote { text-wrap: pretty; }
 
 h1 { letter-spacing: -.025em; } h2 { letter-spacing: -.018em; } .hero-subtitle { line-height: 1.75; }
 .book-cover { box-shadow: 0 4px 10px rgba(0,0,0,.12), 0 24px 48px rgba(0,0,0,.24); }
+
+/* Honor reduced-motion preferences without repeating shortened animations. */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-iteration-count: 1 !important; } }
