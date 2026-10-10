@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getInsight, insights } from "@/lib/insights";
 
-const base = "https://padsplit-playbook.vercel.app";
+const base = "https://www.padsplitplaybookbook.com";
 export const dynamicParams = false;
 export function generateStaticParams() { return insights.map(({ slug }) => ({ slug })); }
 

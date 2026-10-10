@@ -5,7 +5,7 @@ import "@fontsource-variable/newsreader";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://padsplit-playbook.vercel.app"),
+  metadataBase: new URL("https://www.padsplitplaybookbook.com"),
   title: { default: "PadSplit Playbook | Dr. Connor Robertson", template: "%s | PadSplit Playbook" },
   description: "An independent, research-led guide to PadSplit, co-living property analysis, conversion planning, and operating systems by Dr. Connor Robertson.",
   keywords: ["Dr. Connor Robertson", "Connor Robertson", "PadSplit playbook", "PadSplit investing", "co-living real estate", "room rental investing", "shared housing operations"],
@@ -31,9 +31,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "WebSite", "@id": "https://padsplit-playbook.vercel.app/#website", url: "https://padsplit-playbook.vercel.app", name: "PadSplit Playbook", publisher: { "@id": "https://padsplit-playbook.vercel.app/#person" } },
-      { "@type": "Person", "@id": "https://padsplit-playbook.vercel.app/#person", name: "Dr. Connor Robertson", alternateName: "Connor Robertson", url: "https://www.drconnorrobertson.com", jobTitle: "Entrepreneur, real estate operator and educator", sameAs: ["https://www.drconnorrobertson.com", "https://www.linkedin.com/in/dr-connor-robertson", "https://medium.com/@dr.connor.robertson", "https://www.crunchbase.com/person/dr-connor-robertson"], knowsAbout: ["Real estate", "Co-living", "Business acquisitions", "Property operations", "Entrepreneurship"] },
-      { "@type": "Organization", "@id": "https://padsplit-playbook.vercel.app/#organization", name: "PadSplit Playbook", url: "https://padsplit-playbook.vercel.app", founder: { "@id": "https://padsplit-playbook.vercel.app/#person" } }
+      { "@type": "WebSite", "@id": "https://www.padsplitplaybookbook.com/#website", url: "https://www.padsplitplaybookbook.com", name: "PadSplit Playbook", publisher: { "@id": "https://www.padsplitplaybookbook.com/#person" } },
+      { "@type": "Person", "@id": "https://www.padsplitplaybookbook.com/#person", name: "Dr. Connor Robertson", alternateName: "Connor Robertson", url: "https://www.drconnorrobertson.com", jobTitle: "Entrepreneur, real estate operator and educator", sameAs: ["https://www.drconnorrobertson.com", "https://www.linkedin.com/in/dr-connor-robertson", "https://medium.com/@dr.connor.robertson", "https://www.crunchbase.com/person/dr-connor-robertson"], knowsAbout: ["Real estate", "Co-living", "Business acquisitions", "Property operations", "Entrepreneurship"] },
+      { "@type": "Organization", "@id": "https://www.padsplitplaybookbook.com/#organization", name: "PadSplit Playbook", url: "https://www.padsplitplaybookbook.com", founder: { "@id": "https://www.padsplitplaybookbook.com/#person" } }
     ]
   };
   return (

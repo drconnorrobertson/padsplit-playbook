@@ -16,12 +16,11 @@ const legacyRoutes = [
 ];
 
 export default function sitemap():MetadataRoute.Sitemap {
-  const base = "https://padsplit-playbook.vercel.app";
+  const base = "https://www.padsplitplaybookbook.com";
   const insightRoutes = insights.map(({ slug }) => `/insights/${slug}`);
   const routes = ["", "/padsplit-guide", "/underwriting", "/operations", "/insights", "/about", ...insightRoutes, ...legacyRoutes];
   return routes.map((route) => ({
     url: `${base}${route}`,
-    lastModified: new Date(),
     changeFrequency: route === "" || route === "/blog" ? "weekly" : "monthly",
     priority: route === "" ? 1 : route.startsWith("/blog/") ? 0.75 : 0.85,
   }));
