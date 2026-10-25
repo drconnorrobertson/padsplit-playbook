@@ -5,7 +5,7 @@ import { insights, topics } from "@/lib/insights";
 export const metadata: Metadata = {
   title: "Co-Living Learning Library",
   description: "Explore 100 evidence-led guides to PadSplit property selection, underwriting, conversion, compliance, resident operations, and fallback planning.",
-  alternates: { canonical: "/insights" },
+  alternates: { canonical: "/insights" }, openGraph: {"type": "website", "url": "/insights", "title": "Co-Living Learning Library", "description": "Explore 100 evidence-led guides to PadSplit property selection, underwriting, conversion, compliance, resident operations, and fallback planning.", "siteName": "PadSplit Playbook"},
 };
 
 export default function Insights() {
