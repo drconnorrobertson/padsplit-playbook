@@ -1,0 +1,269 @@
+{
+  "title": "Write a Shared-Housing Maintenance Request That Someone Can Act On",
+  "description": "Prepare a clear shared-housing maintenance observation with a fictional request worksheet, factual follow-up and privacy-conscious communication.",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "A useful maintenance request helps the responsible person understand what you observed, where you observed it and how to follow up through the property's actual reporting process. It does not require the resident to diagnose a building system. In a shared home, that distinction matters: several people may encounter the same problem, while each sees a different part of the story. A clear first message can preserve those differences without turning assumptions about another resident into facts."
+    },
+    {
+      "type": "p",
+      "text": "This independent guide explains how to prepare an ordinary maintenance observation for an established reporting channel. It does not replace emergency instructions, a platform's current procedures, a lease or local requirements. Do not delay urgent reporting to complete a worksheet, collect photographs or obtain agreement from housemates. Use the applicable urgent or emergency process when appropriate. The fictional examples below concern communication quality; they do not assess whether a real condition is safe, urgent, legally compliant or repaired."
+    },
+    {
+      "type": "h2",
+      "text": "Start with the reporting destination"
+    },
+    {
+      "type": "p",
+      "text": "Find the reporting method supplied for your home before writing an elaborate message. A property may use a maintenance portal, a platform workflow or a specified contact. Use the current instructions you were actually given. A message sent to an unrelated marketing page or a housemate's personal account may never reach the person assigned to maintenance. If the instructions are missing or inaccessible, ask the responsible contact how to report and follow up. Keep that request separate from assumptions about who owns the building or performs repairs."
+    },
+    {
+      "type": "p",
+      "text": "For an operator, the corresponding task is to make the channel usable. Explain where a resident reports, how they receive a reference number and how they find the applicable urgent process. Do not ask a resident to search several chat histories to discover which channel counts. Test the instructions with a simple fictional request. A portal that accepts a submission but provides no clear confirmation leaves the reporter unsure whether to submit again, call someone else or wait for a response that may never arrive."
+    },
+    {
+      "type": "p",
+      "text": "Use plain labels for those steps. W3C's writing guidance supports clear instructions and meaningful headings; it does not certify a particular housing workflow or prescribe a maintenance response time. A label such as \u201cSubmit a maintenance request\u201d gives a clearer destination than an unexplained department nickname. If there are different ordinary and urgent channels, the actual property instructions should explain their use. This article cannot determine the correct route for an unknown condition at an unknown property."
+    },
+    {
+      "type": "h2",
+      "text": "Separate the observation from the explanation"
+    },
+    {
+      "type": "p",
+      "text": "Write what you directly noticed before suggesting a cause. \u201cThe cabinet door beside the kitchen sink does not close fully\u201d describes an observation. \u201cAnother resident broke the hinge\u201d assigns a cause and responsibility that the reporter may not know. The first description helps a responder locate and assess the condition. The second can introduce a conflict before anyone has examined it. If you have relevant direct knowledge, identify it accurately rather than presenting a guess as an established finding."
+    },
+    {
+      "type": "p",
+      "text": "Location needs the same discipline. \u201cIn the kitchen\u201d may be enough in a small home with one cabinet, but a larger shared kitchen needs a more useful description. Describe the cabinet in relation to a stable feature, such as the sink, rather than a movable item like someone's grocery bag. Do not include another person's bedroom number, name or belongings unless needed and appropriate for the actual reporting process. A maintenance message should contain enough information to find the issue without becoming a general account of residents' activities."
+    },
+    {
+      "type": "p",
+      "text": "Describe the effect on ordinary use in concrete terms. \u201cThe lower door catches when I try to close it\u201d is more informative than \u201cThe kitchen is unusable\u201d when only one cabinet is involved. Conversely, do not minimize an effect you actually experienced to make the message sound polite. Say what happened and what remains unknown. An operator can then assess the report through the proper process, rather than having to infer the observation from an emotional label or a diagnosis supplied by someone without the relevant information."
+    },
+    {
+      "type": "h2",
+      "text": "Use dates and uncertainty honestly"
+    },
+    {
+      "type": "p",
+      "text": "Include when you first noticed the condition if you know. Distinguish that from when the condition began. A resident returning from a trip may notice something on Monday without knowing whether it started that morning or several days earlier. \u201cFirst noticed Monday after returning\u201d preserves that uncertainty. It is more accurate than choosing a precise start date because a form has an empty field. If a required field does not fit what you know, use the reporting system's supported way to explain the uncertainty or ask the responsible contact."
+    },
+    {
+      "type": "p",
+      "text": "If a condition appears intermittently, record the occurrences you observed rather than claiming it happens constantly. A brief description of what you were doing at the time may help a qualified responder understand the report. Do not reproduce the condition, operate equipment repeatedly or undertake an inspection solely to make the note more detailed. Reporting should not depend on an untrained person performing a test. Existing observations are enough to start the conversation; the responder can request appropriate additional information through the actual process."
+    },
+    {
+      "type": "p",
+      "text": "Keep separate timestamps for the observation, the submission and later replies. A message copied into a worksheet after the event should not acquire a false earlier submission time. When forwarding an existing request, preserve its reference and original submission details rather than rewriting it as a new event. This makes the communication history easier to follow. It does not establish whether anyone met a legal deadline: applicable requirements depend on facts and rules that a general editorial worksheet cannot evaluate."
+    },
+    {
+      "type": "h2",
+      "text": "Add photographs only when appropriate"
+    },
+    {
+      "type": "p",
+      "text": "A photograph can clarify location or visible appearance, but it is optional supporting information unless the actual reporting process requires otherwise. Do not enter another person's private space, move their belongings or expose personal records to obtain an image. Avoid capturing residents, mail, payment information, access codes or screens when those details are unnecessary. Use the approved channel for any image you do provide. A public social post is not a substitute for a maintenance request to the responsible party."
+    },
+    {
+      "type": "p",
+      "text": "Check whether the image communicates what your words describe. A close photograph of a cabinet corner may be difficult to locate without a wider, privacy-conscious context image. A picture can also create a misleading impression when the caption does not say when it was taken. Describe the image in ordinary language and retain the original date if available through the process. Do not label an image as proof of a technical cause, code violation or completed repair merely because it shows a visible condition."
+    },
+    {
+      "type": "p",
+      "text": "If photographing would be intrusive, difficult or inappropriate, explain the issue in text and ask how to proceed. Do not postpone an urgent communication because your phone camera is unavailable or because the room is occupied. Operators should consider how someone reports without an image or with an accessibility need. Offering a usable alternative is a workflow question; this guide does not promise that a particular channel meets every accessibility requirement or substitute for an assessment of the actual service."
+    },
+    {
+      "type": "h2",
+      "text": "Provide contact and access information through the proper process"
+    },
+    {
+      "type": "p",
+      "text": "The responsible team may need a way to ask questions or coordinate a visit. Provide the contact information requested by the established process, rather than sharing a housemate's details without permission. Say when you can respond if that helps coordination, while recognizing that your availability does not decide the property's obligations or procedures. If you cannot receive calls during work, say which supported method you can check. A response method should be practical for both the reporter and the assigned team."
+    },
+    {
+      "type": "p",
+      "text": "Keep access arrangements separate from the problem description. A note saying that a resident is usually home is not a substitute for valid entry arrangements, notice or consent where applicable. Do not publish door codes in a worksheet, grant access to other residents' rooms or assume that one person's availability authorizes entry throughout the home. Follow the actual property process and applicable requirements. If the form appears to request information you should not share, ask the responsible contact for a suitable alternative."
+    },
+    {
+      "type": "p",
+      "text": "For operators, a useful acknowledgement identifies the request received and the next communication step without inventing a completion promise. \u201cWe received request F-101 about the lower cabinet beside the sink; the maintenance team will follow up through this portal\u201d is a fictional example of an acknowledgement. It is not a recommended deadline or confirmation that someone has inspected the cabinet. If an appointment is subsequently offered, state what is actually confirmed and what still needs coordination rather than treating a tentative window as an established visit."
+    },
+    {
+      "type": "h2",
+      "text": "Worked example: an ordinary cabinet report"
+    },
+    {
+      "type": "p",
+      "text": "In the fictional Cedar House, Mira notices that the lower kitchen cabinet immediately left of the sink will not close fully. She does not know when the condition began and has not inspected the fittings. The house instructions identify a maintenance portal for ordinary requests and a separate urgent reporting process. This example assumes she is preparing an ordinary communication; it is not guidance for deciding whether a similar condition in a real home belongs in that category."
+    },
+    {
+      "type": "p",
+      "text": "Her first draft reads: \u201cKitchen broken again. Someone must have leaned on it. Please fix everything.\u201d The message does not identify the cabinet, separate the observation from the guess or explain what \u201cagain\u201d refers to. Mira revises it to: \u201cI first noticed today, October 26, that the lower cabinet immediately left of the kitchen sink does not close fully. The door catches during normal closing. I do not know when this started or what caused it. Please confirm receipt through this portal.\u201d The revision preserves the useful facts without manufacturing a diagnosis."
+    },
+    {
+      "type": "p",
+      "text": "The fictional worksheet assigns this report example ID F-101. It records the observation date, location, described effect, unknown cause and submitted channel. It contains no real address, resident contact information or entry credentials. A separate column records the submission reference once the fictional portal confirms receipt. The worksheet is an educational example, not an alternative reporting system and not a file residents should circulate publicly. In a real workflow, keep records only where authorized and avoid creating extra copies of personal information without a reason."
+    },
+    {
+      "type": "h2",
+      "text": "Follow a request without creating a contradictory story"
+    },
+    {
+      "type": "p",
+      "text": "When you receive a response, check whether it relates to the issue you reported. A reply about the upper cabinet on the opposite wall may indicate a misunderstanding, even if the message contains your name. Clarify the location using the existing reference. A short correction such as \u201cF-101 concerns the lower cabinet left of the sink, rather than the upper cabinet\u201d keeps the thread useful. It does not require restating unrelated household complaints or assigning fault for the misunderstanding."
+    },
+    {
+      "type": "p",
+      "text": "If you need to follow up, use the reporting process's existing reference when available. Say what has changed since submission and what question remains unanswered. \u201cThe condition I described in F-101 remains present; please confirm the next communication step\u201d is different from claiming that no one has taken any action. You may know that you have not received an update without knowing what internal work has occurred. State that distinction so the follow-up remains factual and allows a direct response."
+    },
+    {
+      "type": "p",
+      "text": "Do not interpret a generic portal status as more than it says. \u201cReceived,\u201d \u201cassigned,\u201d \u201cscheduled\u201d and \u201cclosed\u201d can represent different events, and their exact meaning depends on the system. If the status is unclear, ask the responsible team what it means for your request. A resident's worksheet should not automatically convert \u201cassigned\u201d into \u201crepaired.\u201d An operator's internal assignment also should not be described to the resident as a completed repair when the work and relevant communication have not been confirmed."
+    },
+    {
+      "type": "h2",
+      "text": "Handle repeat observations and shared reports"
+    },
+    {
+      "type": "p",
+      "text": "Two residents may report the same cabinet from different perspectives. Preserve each person's observation if it matters, but avoid collecting a bundle of unnecessary personal details. If the team identifies a duplicate request, link the references through the approved process rather than deleting the later message without explanation. The person who submitted it still needs to know where to follow the issue. Duplicate handling should reduce confusion, not erase information about when someone encountered the condition or how it affected their use."
+    },
+    {
+      "type": "p",
+      "text": "A repeat observation after reported work deserves a clear description of what you noticed now. \u201cThe door caught again during ordinary use on October 29 after the message marking F-101 closed\u201d is a chronology. \u201cThe repair person did nothing\u201d may be an unsupported conclusion. Report the current observation and original reference, and let the responsible process assess whether it is the same cause, a different issue or an incomplete repair. Do not inspect or alter the work to prove your interpretation."
+    },
+    {
+      "type": "p",
+      "text": "Operators can use recurring questions to improve communication instructions without claiming a pattern from an incomplete sample. If three selected messages lack a location, that is a reason to test the form's location prompt; it is not evidence that most residents fail to report properly. Ask whether the form supplied an understandable example, whether the location options fit the house and whether the acknowledgement explains follow-up. Improving the request pathway is a distinct task from evaluating resident behavior or determining technical repair needs."
+    },
+    {
+      "type": "h2",
+      "text": "Review a handoff before closing the communication loop"
+    },
+    {
+      "type": "p",
+      "text": "If responsibility changes between staff members, the receiving person should be able to identify the original request without asking the resident to reconstruct every message. Retain the report reference, factual observation and last confirmed communication in the approved system. Clearly distinguish an internal note from something actually sent to the reporter. Before telling someone that a visit has been arranged, confirm that the arrangement exists through the applicable process. Before changing the request status, check what that status communicates to residents. This handoff review concerns accurate communication; it does not substitute for technical completion checks or establish that a repair has been performed."
+    },
+    {
+      "type": "h2",
+      "text": "Keep the maintenance brief within its proper scope"
+    },
+    {
+      "type": "p",
+      "text": "A communication template cannot determine housing rights, repair obligations or the appropriate legal remedy. USAGov's tenant-rights resource points people toward state resources and legal-aid information for unresolved housing disputes. Use those resources for their stated purpose instead of treating a generic national article as a property-specific answer. Where a disagreement arises, the facts, agreement and applicable requirements matter. This guide does not recommend withholding payments, changing locks, undertaking repairs or selecting a legal action based on a worksheet."
+    },
+    {
+      "type": "p",
+      "text": "Likewise, an observation brief cannot authorize technical work. Avoid turning a helpful description into instructions for another resident to dismantle, adjust or test equipment. An operator should route the issue to the appropriate qualified person through the actual maintenance process. If more information is requested, clarify what is needed and whether collecting it is appropriate. Being helpful does not require volunteering expertise, access or permission you do not have. Keep the boundary visible in the form and in acknowledgements."
+    },
+    {
+      "type": "p",
+      "text": "A useful final review asks four practical questions: can the responsible person locate the observation, distinguish what is known from what is uncertain, respond through the actual channel and understand the next communication step? If those answers are clear, additional narrative may add little. Keep the original history available through the authorized process and remove unnecessary personal detail. The result is a more usable maintenance conversation, while decisions about urgency, entry, technical work and rights remain with the appropriate real-world processes."
+    },
+    {
+      "type": "h2",
+      "text": "Frequently asked questions"
+    },
+    {
+      "type": "h3",
+      "text": "Do I need to know the technical cause before reporting?"
+    },
+    {
+      "type": "p",
+      "text": "No. Describe what you directly observed, where it occurred and when you noticed it. Identify uncertainty rather than guessing a component or blaming a resident. The responsible maintenance process can decide what assessment is needed. Do not inspect, disassemble or repeatedly operate something merely to produce a more detailed report. If the condition calls for urgent reporting under the applicable instructions, do not wait for a diagnosis or for this worksheet to be complete."
+    },
+    {
+      "type": "h3",
+      "text": "Should I submit another request if I have not received a reply?"
+    },
+    {
+      "type": "p",
+      "text": "Follow the actual reporting and follow-up instructions and use an existing reference when available. State whether you lack confirmation, an update or an answer to a specific question. Those are different situations. Do not assume a universal waiting period from this article, and do not treat a missing ordinary reply as a reason to ignore the applicable urgent process. If the reporting instructions are unclear, ask the responsible contact how to confirm receipt and follow up."
+    },
+    {
+      "type": "h3",
+      "text": "Can I include photographs of a shared area?"
+    },
+    {
+      "type": "p",
+      "text": "Use the approved reporting channel and include only appropriate information needed to describe the issue. Avoid capturing people, personal records, access credentials or private belongings unnecessarily. Do not enter someone else's space or move their possessions to improve a photograph. If an image is inappropriate or unavailable, explain the observation in text and ask how to proceed. An urgent report should not wait for photographs, editing or agreement among residents about which picture is best."
+    },
+    {
+      "type": "h3",
+      "text": "Does a maintenance message give permission to enter a room?"
+    },
+    {
+      "type": "p",
+      "text": "Do not assume that it does. Access arrangements, notice and any required permissions depend on the actual process and applicable requirements. Provide availability through the supported channel without publishing entry credentials or granting access to spaces you do not control. Ask the responsible team to clarify arrangements when necessary. This communication guide cannot decide whether entry is authorized, what notice is required or which person may give consent in a particular housing situation."
+    },
+    {
+      "type": "h3",
+      "text": "What should I say if the problem seems to return after work?"
+    },
+    {
+      "type": "p",
+      "text": "Describe the current observation and date, and reference the earlier request or completion message. Explain what you noticed without claiming to know whether the underlying cause is identical or whether someone performed the work correctly. Ask the responsible process how to report the recurrence. Do not alter or inspect equipment to prove the issue. A clear chronology supports the conversation while leaving technical assessment and any appropriate response to the people responsible for them."
+    },
+    {
+      "type": "h3",
+      "text": "Where can I look for help with an unresolved housing dispute?"
+    },
+    {
+      "type": "p",
+      "text": "USAGov provides a tenant-rights resource with directions to state resources and information about finding legal aid. Read the relevant agreement and seek help appropriate to the actual location and facts. A maintenance worksheet is not a determination of legal duties, deadlines or remedies. Keep your communication history through authorized channels, and distinguish ordinary follow-up from any applicable urgent process. This independent guide does not offer a property-specific legal conclusion or recommend changing payments or access arrangements."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Do I need to know the technical cause before reporting?",
+      "answer": "No. Describe what you directly observed, where it occurred and when you noticed it. Identify uncertainty rather than guessing a component or blaming a resident. The responsible maintenance process can decide what assessment is needed. Do not inspect, disassemble or repeatedly operate something merely to produce a more detailed report. If the condition calls for urgent reporting under the applicable instructions, do not wait for a diagnosis or for this worksheet to be complete."
+    },
+    {
+      "question": "Should I submit another request if I have not received a reply?",
+      "answer": "Follow the actual reporting and follow-up instructions and use an existing reference when available. State whether you lack confirmation, an update or an answer to a specific question. Those are different situations. Do not assume a universal waiting period from this article, and do not treat a missing ordinary reply as a reason to ignore the applicable urgent process. If the reporting instructions are unclear, ask the responsible contact how to confirm receipt and follow up."
+    },
+    {
+      "question": "Can I include photographs of a shared area?",
+      "answer": "Use the approved reporting channel and include only appropriate information needed to describe the issue. Avoid capturing people, personal records, access credentials or private belongings unnecessarily. Do not enter someone else's space or move their possessions to improve a photograph. If an image is inappropriate or unavailable, explain the observation in text and ask how to proceed. An urgent report should not wait for photographs, editing or agreement among residents about which picture is best."
+    },
+    {
+      "question": "Does a maintenance message give permission to enter a room?",
+      "answer": "Do not assume that it does. Access arrangements, notice and any required permissions depend on the actual process and applicable requirements. Provide availability through the supported channel without publishing entry credentials or granting access to spaces you do not control. Ask the responsible team to clarify arrangements when necessary. This communication guide cannot decide whether entry is authorized, what notice is required or which person may give consent in a particular housing situation."
+    },
+    {
+      "question": "What should I say if the problem seems to return after work?",
+      "answer": "Describe the current observation and date, and reference the earlier request or completion message. Explain what you noticed without claiming to know whether the underlying cause is identical or whether someone performed the work correctly. Ask the responsible process how to report the recurrence. Do not alter or inspect equipment to prove the issue. A clear chronology supports the conversation while leaving technical assessment and any appropriate response to the people responsible for them."
+    },
+    {
+      "question": "Where can I look for help with an unresolved housing dispute?",
+      "answer": "USAGov provides a tenant-rights resource with directions to state resources and information about finding legal aid. Read the relevant agreement and seek help appropriate to the actual location and facts. A maintenance worksheet is not a determination of legal duties, deadlines or remedies. Keep your communication history through authorized channels, and distinguish ordinary follow-up from any applicable urgent process. This independent guide does not offer a property-specific legal conclusion or recommend changing payments or access arrangements."
+    }
+  ],
+  "wordCount": 3083,
+  "sources": [
+    {
+      "url": "https://www.usa.gov/tenant-rights",
+      "label": "USAGov: state tenant-rights resources and legal-aid information for unresolved disputes; not property-specific advice"
+    },
+    {
+      "url": "https://www.w3.org/WAI/tips/writing/",
+      "label": "W3C WAI: clear instructions and meaningful structure; not certification of a reporting process"
+    }
+  ],
+  "related": [
+    {
+      "url": "/operations",
+      "label": "Keep the broader shared-housing operating process clear"
+    },
+    {
+      "url": "/guides/shared-kitchen-setup",
+      "label": "Plan shared-kitchen storage and ordinary use"
+    },
+    {
+      "url": "https://www.padsplit.com/help",
+      "label": "Consult the current official PadSplit Help Center for platform procedures"
+    }
+  ]
+}

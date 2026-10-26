@@ -18,10 +18,11 @@ const legacyRoutes = [
 export default function sitemap():MetadataRoute.Sitemap {
   const base = "https://www.padsplitplaybookbook.com";
   const insightRoutes = insights.map(({ slug }) => `/insights/${slug}`);
-  const routes = ["", "/padsplit-guide", "/underwriting", "/operations", "/guides/shared-kitchen-setup", "/insights", "/about", ...insightRoutes, ...legacyRoutes];
+  const routes = ["", "/padsplit-guide", "/underwriting", "/operations", "/guides/shared-kitchen-setup", "/guides/maintenance-request-brief", "/insights", "/about", ...insightRoutes, ...legacyRoutes];
   return routes.map((route) => ({
     url: `${base}${route}`,
     ...(route === "/guides/shared-kitchen-setup" ? { lastModified: "2026-10-25" } : {}),
+    ...(route === "/guides/maintenance-request-brief" ? { lastModified: "2026-10-26" } : {}),
     changeFrequency: route === "" || route === "/blog" ? "weekly" : "monthly",
     priority: route === "" ? 1 : route.startsWith("/blog/") ? 0.75 : 0.85,
   }));
