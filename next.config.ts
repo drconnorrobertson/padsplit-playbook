@@ -1,3 +1,4 @@
+import { pricingCanonicalSlug, pricingRedirectSlugs } from "./lib/pricing-canonical";
 import type { NextConfig } from "next";
 import { utilityCanonicalSlug, utilityRedirectSlugs } from "./lib/utility-canonical";
 
@@ -12,6 +13,10 @@ const nextConfig: NextConfig = {
     })), ...maintenanceRedirectSlugs.map((slug) => ({
       source: `/insights/${slug}`,
       destination: `/insights/${maintenanceCanonicalSlug}`,
+      permanent: true,
+    })), ...pricingRedirectSlugs.map((slug) => ({
+      source: `/insights/${slug}`,
+      destination: `/insights/${pricingCanonicalSlug}`,
       permanent: true,
     }))];
   },
