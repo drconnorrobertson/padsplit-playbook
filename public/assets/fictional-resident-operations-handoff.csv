@@ -1,0 +1,7 @@
+fictional,issue_id,topic,first_report,acknowledged,accountable_role,state_at_12_00,verified_at,next_action
+true,R01,Shared supplies,09:00,09:12,Supply coordinator,Awaiting verification,,Check the reported restock at 12:15
+true,R02,Storage-label question,09:05,09:25,Resident liaison,Closed,10:10,Answer confirmed; retain the reference
+true,R03,Internet interruption,09:10,09:13,Service coordinator,Vendor investigating,,Provide the next status update by 12:30
+true,R04,Shared refrigerator drawer,09:20,09:50,Maintenance coordinator,Assigned,,Confirm the assigned visit at 12:15
+true,R05,Package-location question,09:30,10:00,Resident liaison,Closed,10:45,Location confirmed; retain the reference
+true,R06,Shared cleaning schedule,09:40,09:55,House coordinator,Waiting for clarification,,Follow up on the open question at 12:20

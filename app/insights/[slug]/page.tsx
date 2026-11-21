@@ -1,3 +1,4 @@
+import ResidentOperationsFieldGuide, { residentTitle, residentDescription } from "../_components/resident-operations-field-guide";
 import ConversionBudgetFieldGuide, { budgetTitle, budgetDescription } from "../_components/conversion-budget-field-guide";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -19,6 +20,7 @@ export function generateStaticParams() { return insights.map(({ slug }) => ({ sl
 
 const specializedMetadata: Partial<Record<string, { title: string; description: string }>> = {
   ...roomDesignPages,
+  "resident-operations-field-guide": { title: residentTitle, description: residentDescription },
   "room-pricing-field-guide": { title: roomPricingTitle, description: roomPricingDescription },
   "utilities-field-guide": { title: utilitiesTitle, description: utilitiesDescription },
   "maintenance-field-guide": { title: maintenanceTitle, description: maintenanceDescription },
@@ -57,6 +59,10 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
     { "@type": "Article", headline: `${item.label}: ${item.lens}`, datePublished: "2026-09-23", dateModified: "2026-11-21", mainEntityOfPage: `${base}/insights/${item.slug}`, author: { "@type": "Organization", name: "PadSplit Playbook", url: base }, publisher: { "@type": "Organization", name: "PadSplit Playbook", url: base }, about: item.label },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: base }, { "@type": "ListItem", position: 2, name: "Insights", item: `${base}/insights` }, { "@type": "ListItem", position: 3, name: `${item.label}: ${item.lens}`, item: `${base}/insights/${item.slug}` }] },
   ] };
+  if (slug === "resident-operations-field-guide") {
+    schema["@graph"][0].headline = residentTitle;
+    return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replaceAll("<", "\\u003c") }} /><ResidentOperationsFieldGuide /></>;
+  }
   if (slug === "conversion-budget-field-guide") {
     schema["@graph"][0].headline = budgetTitle;
     return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replaceAll("<", "\\u003c") }} /><ConversionBudgetFieldGuide /></>;

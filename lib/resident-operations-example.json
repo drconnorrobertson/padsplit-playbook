@@ -1,0 +1,19 @@
+{
+  "fictional": true,
+  "snapshot": "12:00 on one invented operating day; all times use the same clock",
+  "routineAcknowledgmentTargetMinutes": 20,
+  "issues": [
+    { "id": "R01", "topic": "Shared supplies", "received": "09:00", "acknowledged": "09:12", "owner": "Supply coordinator", "state": "Awaiting verification", "verifiedAt": null, "nextAction": "Check the reported restock at 12:15" },
+    { "id": "R02", "topic": "Storage-label question", "received": "09:05", "acknowledged": "09:25", "owner": "Resident liaison", "state": "Closed", "verifiedAt": "10:10", "nextAction": "Answer confirmed; retain the reference" },
+    { "id": "R03", "topic": "Internet interruption", "received": "09:10", "acknowledged": "09:13", "owner": "Service coordinator", "state": "Vendor investigating", "verifiedAt": null, "nextAction": "Provide the next status update by 12:30" },
+    { "id": "R04", "topic": "Shared refrigerator drawer", "received": "09:20", "acknowledged": "09:50", "owner": "Maintenance coordinator", "state": "Assigned", "verifiedAt": null, "nextAction": "Confirm the assigned visit at 12:15" },
+    { "id": "R05", "topic": "Package-location question", "received": "09:30", "acknowledged": "10:00", "owner": "Resident liaison", "state": "Closed", "verifiedAt": "10:45", "nextAction": "Location confirmed; retain the reference" },
+    { "id": "R06", "topic": "Shared cleaning schedule", "received": "09:40", "acknowledged": "09:55", "owner": "House coordinator", "state": "Waiting for clarification", "verifiedAt": null, "nextAction": "Follow up on the open question at 12:20" }
+  ],
+  "additionalIncomingReports": [
+    { "id": "M07", "issue": "R03", "received": "09:14" },
+    { "id": "M08", "issue": "R03", "received": "09:18" },
+    { "id": "M09", "issue": "R04", "received": "09:28" }
+  ],
+  "lateUpdate": { "issue": "R03", "promised": "10:00", "delivered": "10:20" }
+}

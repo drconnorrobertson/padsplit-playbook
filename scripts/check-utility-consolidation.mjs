@@ -23,15 +23,19 @@ const designURL=moduleURL('lib/design-canonical.ts');
 const design=await import(designURL);
 const budgetURL=moduleURL('lib/budget-canonical.ts');
 const budget=await import(budgetURL);
-const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL,'./budget-canonical':budgetURL});
+const residentURL=moduleURL('lib/resident-canonical.ts');
+const resident=await import(residentURL);
+const residentExample=JSON.parse(fs.readFileSync(path.join(root,'lib/resident-operations-example.json'),'utf8'));
+const residentDataURL='data:text/javascript;base64,'+Buffer.from('export default '+JSON.stringify(residentExample)).toString('base64');
+const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL,'./budget-canonical':budgetURL,'./resident-canonical':residentURL});
 const {insights,getRelatedInsights} = await import(insightsURL);
-const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL,'./lib/budget-canonical':budgetURL}))).default;
+const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL,'./lib/budget-canonical':budgetURL,'./lib/resident-canonical':residentURL}))).default;
 const sitemap = (await import(moduleURL('app/sitemap.ts',{'@/lib/insights':insightsURL}))).default();
-const clusters=[{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8},{slug:budget.budgetCanonicalSlug,redirects:budget.budgetRedirectSlugs,prefix:'conversion-budget-'}];
+const clusters=[{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8},{slug:budget.budgetCanonicalSlug,redirects:budget.budgetRedirectSlugs,prefix:'conversion-budget-'},{slug:resident.residentCanonicalSlug,redirects:resident.residentRedirectSlugs,prefix:'resident-operations-'}];
 const rules = await config.redirects();
-assert.equal(insights.length,56);
-assert.equal(rules.length,44);
-assert.equal(new Set(rules.map(rule=>rule.source)).size,44);
+assert.equal(insights.length,47);
+assert.equal(rules.length,53);
+assert.equal(new Set(rules.map(rule=>rule.source)).size,53);
 for (const cluster of clusters) {
   const destination='/insights/'+cluster.slug;
   assert.equal(insights.filter(item=>item.slug.startsWith(cluster.prefix)).length,cluster.retainedCount||1);
@@ -46,8 +50,8 @@ for (const cluster of clusters) {
   }
   assert.equal(sitemap.find(item=>new URL(item.url).pathname===destination).lastModified,'2026-11-21');
 }
-assert.equal(sitemap.length,88);
-assert.equal(new Set(sitemap.map(item=>item.url)).size,88);
+assert.equal(sitemap.length,79);
+assert.equal(new Set(sitemap.map(item=>item.url)).size,79);
 assert.ok(insights.some(item=>item.slug==='room-design-mistakes'),'Keep the distinct worked-mistakes guide');
 for (const item of insights) assert.equal(sitemap.find(entry=>new URL(entry.url).pathname==='/insights/'+item.slug).lastModified,'2026-11-21');
 for (const item of insights) {
@@ -84,8 +88,8 @@ const pageImports={
   'next/navigation':pathToFileURL(require.resolve('next/navigation')).href,
   '@/lib/insights':insightsURL,
 };
-for (const name of ['room-pricing-field-guide','room-design-guides','utilities-field-guide','maintenance-field-guide','conversion-budget-field-guide']) {
-  pageImports['../_components/'+name]=moduleURL('app/insights/_components/'+name+'.tsx',{'react/jsx-runtime':jsxURL,'next/link':linkURL});
+for (const name of ['room-pricing-field-guide','room-design-guides','utilities-field-guide','maintenance-field-guide','conversion-budget-field-guide','resident-operations-field-guide']) {
+  pageImports['../_components/'+name]=moduleURL('app/insights/_components/'+name+'.tsx',{'react/jsx-runtime':jsxURL,'next/link':linkURL,'@/lib/resident-operations-example.json':residentDataURL});
 }
 const route=await import(moduleURL('app/insights/[slug]/page.tsx',pageImports));
 assert.deepEqual(route.generateStaticParams(),insights.map(({slug})=>({slug})));
@@ -117,4 +121,29 @@ assert.equal(34200-centsA,2400);
 assert.equal(centsA/150,212);
 assert.equal(Math.round(centsB/180),203);
 assert.ok(content.includes('fictional') && content.includes('not utility tariffs'));
-console.log(JSON.stringify({insightConsolidation:'passed',canonicalGuides:56,permanentRedirects:44,sitemapOwners:88,relatedGuideSetsChecked:56,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:56,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
+// Independent arithmetic and artifact checks for the fictional operating day.
+const ResidentGuide=(await import(pageImports['../_components/resident-operations-field-guide'])).default;
+const residentContent=text(ResidentGuide());
+const minutes=value=>{assert.match(value,/^\d{2}:\d{2}$/);const [h,m]=value.split(':').map(Number);assert.ok(h<24&&m<60);return h*60+m;};
+const issues=residentExample.issues;
+assert.equal(residentExample.fictional,true);assert.equal(issues.length,6);
+assert.equal(new Set(issues.map(issue=>issue.id)).size,6);
+const intervals=issues.map(issue=>minutes(issue.acknowledged)-minutes(issue.received));
+assert.deepEqual(intervals,[12,20,3,30,30,15]);
+assert.equal(intervals.reduce((a,b)=>a+b,0),110);
+assert.equal((intervals.reduce((a,b)=>a+b,0)/6).toFixed(1),'18.3');
+assert.equal(intervals.filter(value=>value<=residentExample.routineAcknowledgmentTargetMinutes).length,4);
+assert.equal((4/6*100).toFixed(1),'66.7');
+assert.equal(issues.filter(issue=>issue.state==='Closed'&&issue.verifiedAt).length,2);
+assert.equal((2/6*100).toFixed(1),'33.3');assert.equal(3/6*100,50);
+assert.equal(issues.length+residentExample.additionalIncomingReports.length,9);
+for(const report of residentExample.additionalIncomingReports)assert.ok(issues.some(issue=>issue.id===report.issue));
+assert.equal(minutes(residentExample.lateUpdate.delivered)-minutes(residentExample.lateUpdate.promised),20);
+assert.equal(12*60-Math.min(...issues.filter(issue=>!issue.verifiedAt).map(issue=>minutes(issue.received))),180);
+const header=['fictional','issue_id','topic','first_report','acknowledged','accountable_role','state_at_12_00','verified_at','next_action'];
+const csvCell=value=>/[",\r\n]/.test(String(value))?'"'+String(value).replaceAll('"','""')+'"':String(value);
+const expectedCSV=[header,...issues.map(issue=>['true',issue.id,issue.topic,issue.received,issue.acknowledged,issue.owner,issue.state,issue.verifiedAt||'',issue.nextAction])].map(row=>row.map(csvCell).join(',')).join('\n')+'\n';
+assert.equal(fs.readFileSync(path.join(root,'public/assets/fictional-resident-operations-handoff.csv'),'utf8').replaceAll('\r\n','\n'),expectedCSV);
+for(const value of ['nine incoming reports','six underlying issues','66.7%','18.3 minutes','33.3%','50%','20 minutes late','three hours','fictional'])assert.ok(residentContent.includes(value),'Resident example contains checked explanation: '+value);
+assert.ok(!fs.readFileSync(path.join(root,'app/insights/_components/resident-operations-field-guide.tsx'),'utf8').includes('use client'));
+console.log(JSON.stringify({insightConsolidation:'passed',canonicalGuides:47,permanentRedirects:53,sitemapOwners:79,relatedGuideSetsChecked:47,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:47,residentIssueArithmetic:'passed',residentCsvRowsChecked:6,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
