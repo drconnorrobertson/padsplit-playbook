@@ -1,3 +1,4 @@
+import { fallbackCanonicalSlug, fallbackRedirectSlugs } from "./lib/fallback-canonical";
 import { propertyFitCanonicalSlug, propertyFitRedirectSlugs } from "./lib/property-fit-canonical";
 import { residentCanonicalSlug, residentRedirectSlugs } from "./lib/resident-canonical";
 import { budgetCanonicalSlug, budgetRedirectSlugs } from "./lib/budget-canonical";
@@ -10,7 +11,11 @@ import { maintenanceCanonicalSlug, maintenanceRedirectSlugs } from "./lib/mainte
 
 const nextConfig: NextConfig = {
   async redirects() {
-    return [...utilityRedirectSlugs.map((slug) => ({
+    return [...fallbackRedirectSlugs.map((slug) => ({
+      source: `/insights/${slug}`,
+      destination: `/insights/${fallbackCanonicalSlug}`,
+      permanent: true,
+    })), ...utilityRedirectSlugs.map((slug) => ({
       source: `/insights/${slug}`,
       destination: `/insights/${utilityCanonicalSlug}`,
       permanent: true,
