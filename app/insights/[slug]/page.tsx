@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { getInsight, insights } from "@/lib/insights";
 import RoomPricingFieldGuide, { roomPricingTitle, roomPricingDescription } from "../_components/room-pricing-field-guide";
 
+import RoomDesignGuide, { roomDesignPages } from "../_components/room-design-guides";
+
 const base = "https://www.padsplitplaybookbook.com";
 export const dynamicParams = false;
 export function generateStaticParams() { return insights.map(({ slug }) => ({ slug })); }
@@ -13,6 +15,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const item = getInsight(slug);
   if (!item) return {};
   if (slug === "room-pricing-field-guide") return { title: roomPricingTitle, description: roomPricingDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: roomPricingTitle, description: roomPricingDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
+  if (slug === "room-design-checklist" || slug === "room-design-mistakes") {
+    const page = roomDesignPages[slug];
+    return { title: page.title, description: page.description, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: page.title, description: page.description, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
+  }
   const description = `${item.lens} for ${item.label.toLowerCase()}: evidence, risks, questions, downside tests, and implementation steps for co-living operators.`;
   return { title: `${item.label}: ${item.lens}`, description, alternates: { canonical: `/insights/${item.slug}` }, openGraph: { type: "article", title: `${item.label}: ${item.lens}`, description, url: `/insights/${item.slug}` } };
 }
@@ -33,6 +39,14 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
     { "@type": "Article", headline: `${item.label}: ${item.lens}`, datePublished: "2026-09-23", dateModified: "2026-09-23", mainEntityOfPage: `${base}/insights/${item.slug}`, author: { "@type": "Person", name: "Dr. Connor Robertson", url: "https://www.drconnorrobertson.com" }, publisher: { "@type": "Organization", name: "PadSplit Playbook", url: base }, about: item.label },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: base }, { "@type": "ListItem", position: 2, name: "Insights", item: `${base}/insights` }, { "@type": "ListItem", position: 3, name: `${item.label}: ${item.lens}`, item: `${base}/insights/${item.slug}` }] },
   ] };
+  if (slug === "room-design-checklist" || slug === "room-design-mistakes") {
+    const page = roomDesignPages[slug];
+    const article = schema["@graph"][0];
+    article.headline = page.title;
+    article.dateModified = "2026-11-21";
+    article.author = { "@type": "Organization", name: "PadSplit Playbook", url: base };
+    return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replaceAll("<", "\\u003c") }} /><RoomDesignGuide slug={slug} /></>;
+  }
   if (slug === "room-pricing-field-guide") {
     const article = schema["@graph"][0];
     article.headline = roomPricingTitle;
