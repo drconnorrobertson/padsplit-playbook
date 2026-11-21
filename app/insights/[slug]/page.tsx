@@ -1,3 +1,4 @@
+import ConversionBudgetFieldGuide, { budgetTitle, budgetDescription } from "../_components/conversion-budget-field-guide";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -16,19 +17,28 @@ const insightProvenance: Metadata = { authors: [{ name: "PadSplit Playbook", url
 export const dynamicParams = false;
 export function generateStaticParams() { return insights.map(({ slug }) => ({ slug })); }
 
+const specializedMetadata: Partial<Record<string, { title: string; description: string }>> = {
+  ...roomDesignPages,
+  "room-pricing-field-guide": { title: roomPricingTitle, description: roomPricingDescription },
+  "utilities-field-guide": { title: utilitiesTitle, description: utilitiesDescription },
+  "maintenance-field-guide": { title: maintenanceTitle, description: maintenanceDescription },
+  "conversion-budget-field-guide": { title: budgetTitle, description: budgetDescription },
+};
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const item = getInsight(slug);
   if (!item) return {};
-  if (slug === "maintenance-field-guide") return { ...insightProvenance, title: maintenanceTitle, description: maintenanceDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: maintenanceTitle, description: maintenanceDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
-  if (slug === "utilities-field-guide") return { ...insightProvenance, title: utilitiesTitle, description: utilitiesDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: utilitiesTitle, description: utilitiesDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
-  if (slug === "room-pricing-field-guide") return { ...insightProvenance, title: roomPricingTitle, description: roomPricingDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: roomPricingTitle, description: roomPricingDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
-  if (slug === "room-design-checklist" || slug === "room-design-mistakes") {
-    const page = roomDesignPages[slug];
-    return { ...insightProvenance, title: page.title, description: page.description, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: page.title, description: page.description, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
-  }
-  const description = `${item.lens} for ${item.label.toLowerCase()}: evidence, risks, questions, downside tests, and implementation steps for co-living operators.`;
-  return { ...insightProvenance, title: `${item.label}: ${item.lens}`, description, alternates: { canonical: `/insights/${item.slug}` }, openGraph: { type: "article", title: `${item.label}: ${item.lens}`, description, url: `/insights/${item.slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
+  const { title, description } = specializedMetadata[slug] ?? {
+    title: `${item.label}: ${item.lens}`,
+    description: `${item.lens} for ${item.label.toLowerCase()}: evidence, risks, questions, downside tests, and implementation steps for co-living operators.`,
+  };
+  return {
+    ...insightProvenance, title, description,
+    alternates: { canonical: `/insights/${slug}` },
+    openGraph: { type: "article", title, description, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" },
+    twitter: { card: "summary_large_image", title, description },
+  };
 }
 
 export default async function InsightPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -47,6 +57,10 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
     { "@type": "Article", headline: `${item.label}: ${item.lens}`, datePublished: "2026-09-23", dateModified: "2026-11-21", mainEntityOfPage: `${base}/insights/${item.slug}`, author: { "@type": "Organization", name: "PadSplit Playbook", url: base }, publisher: { "@type": "Organization", name: "PadSplit Playbook", url: base }, about: item.label },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: base }, { "@type": "ListItem", position: 2, name: "Insights", item: `${base}/insights` }, { "@type": "ListItem", position: 3, name: `${item.label}: ${item.lens}`, item: `${base}/insights/${item.slug}` }] },
   ] };
+  if (slug === "conversion-budget-field-guide") {
+    schema["@graph"][0].headline = budgetTitle;
+    return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replaceAll("<", "\\u003c") }} /><ConversionBudgetFieldGuide /></>;
+  }
   if (slug === "maintenance-field-guide") {
     const article = schema["@graph"][0];
     article.headline = maintenanceTitle;

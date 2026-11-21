@@ -1,0 +1,9 @@
+scenario,bucket,scope,quantity,unit,unit_rate,amount,status
+fictional,defined_scope,Painting,1200,sq_ft,2.50,3000.00,illustrative_quote
+fictional,defined_scope,Flooring,600,sq_ft,5.00,3000.00,illustrative_quote
+fictional,defined_scope,Storage assemblies,4,each,450.00,1800.00,illustrative_quote
+fictional,defined_scope,Coordination,1,package,900.00,900.00,illustrative_quote
+fictional,defined_scope,Delivery and haul-away,1,package,600.00,600.00,illustrative_quote
+fictional,defined_scope,Furnishing package,1,package,2600.00,2600.00,illustrative_quote
+fictional,allowance,Lighting,1,allowance,1200.00,1200.00,unresolved_estimate
+fictional,held_reserve,Held reserve,1,funding_pool,2000.00,2000.00,uncommitted_funding
