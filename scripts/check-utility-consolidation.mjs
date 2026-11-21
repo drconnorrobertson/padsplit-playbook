@@ -27,19 +27,23 @@ const residentURL=moduleURL('lib/resident-canonical.ts');
 const resident=await import(residentURL);
 const residentExample=JSON.parse(fs.readFileSync(path.join(root,'lib/resident-operations-example.json'),'utf8'));
 const residentDataURL='data:text/javascript;base64,'+Buffer.from('export default '+JSON.stringify(residentExample)).toString('base64');
+const fallbackURL=moduleURL('lib/fallback-canonical.ts');
+const fallback=await import(fallbackURL);
+const fallbackExample=JSON.parse(fs.readFileSync(path.join(root,'lib/fallback-example.json'),'utf8'));
+const fallbackDataURL='data:text/javascript;base64,'+Buffer.from('export default '+JSON.stringify(fallbackExample)).toString('base64');
 const propertyFitURL=moduleURL('lib/property-fit-canonical.ts');
 const propertyFit=await import(propertyFitURL);
 const propertyExample=JSON.parse(fs.readFileSync(path.join(root,'lib/property-fit-example.json'),'utf8'));
 const propertyDataURL='data:text/javascript;base64,'+Buffer.from('export default '+JSON.stringify(propertyExample)).toString('base64');
-const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL,'./budget-canonical':budgetURL,'./resident-canonical':residentURL,'./property-fit-canonical':propertyFitURL});
+const insightsURL = moduleURL('lib/insights.ts',{'./fallback-canonical':fallbackURL,'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL,'./budget-canonical':budgetURL,'./resident-canonical':residentURL,'./property-fit-canonical':propertyFitURL});
 const {insights,getRelatedInsights} = await import(insightsURL);
-const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL,'./lib/budget-canonical':budgetURL,'./lib/resident-canonical':residentURL,'./lib/property-fit-canonical':propertyFitURL}))).default;
+const config = (await import(moduleURL('next.config.ts',{'./lib/fallback-canonical':fallbackURL,'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL,'./lib/budget-canonical':budgetURL,'./lib/resident-canonical':residentURL,'./lib/property-fit-canonical':propertyFitURL}))).default;
 const sitemap = (await import(moduleURL('app/sitemap.ts',{'@/lib/insights':insightsURL}))).default();
-const clusters=[{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8},{slug:budget.budgetCanonicalSlug,redirects:budget.budgetRedirectSlugs,prefix:'conversion-budget-'},{slug:resident.residentCanonicalSlug,redirects:resident.residentRedirectSlugs,prefix:'resident-operations-'},{slug:propertyFit.propertyFitCanonicalSlug,redirects:propertyFit.propertyFitRedirectSlugs,prefix:'property-fit-'}];
+const clusters=[{slug:fallback.fallbackCanonicalSlug,redirects:fallback.fallbackRedirectSlugs,prefix:'fallback-use-'},{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8},{slug:budget.budgetCanonicalSlug,redirects:budget.budgetRedirectSlugs,prefix:'conversion-budget-'},{slug:resident.residentCanonicalSlug,redirects:resident.residentRedirectSlugs,prefix:'resident-operations-'},{slug:propertyFit.propertyFitCanonicalSlug,redirects:propertyFit.propertyFitRedirectSlugs,prefix:'property-fit-'}];
 const rules = await config.redirects();
-assert.equal(insights.length,38);
-assert.equal(rules.length,62);
-assert.equal(new Set(rules.map(rule=>rule.source)).size,62);
+assert.equal(insights.length,29);
+assert.equal(rules.length,71);
+assert.equal(new Set(rules.map(rule=>rule.source)).size,71);
 for (const cluster of clusters) {
   const destination='/insights/'+cluster.slug;
   assert.equal(insights.filter(item=>item.slug.startsWith(cluster.prefix)).length,cluster.retainedCount||1);
@@ -54,8 +58,8 @@ for (const cluster of clusters) {
   }
   assert.equal(sitemap.find(item=>new URL(item.url).pathname===destination).lastModified,'2026-11-21');
 }
-assert.equal(sitemap.length,70);
-assert.equal(new Set(sitemap.map(item=>item.url)).size,70);
+assert.equal(sitemap.length,61);
+assert.equal(new Set(sitemap.map(item=>item.url)).size,61);
 assert.ok(insights.some(item=>item.slug==='room-design-mistakes'),'Keep the distinct worked-mistakes guide');
 for (const item of insights) assert.equal(sitemap.find(entry=>new URL(entry.url).pathname==='/insights/'+item.slug).lastModified,'2026-11-21');
 for (const item of insights) {
@@ -92,8 +96,8 @@ const pageImports={
   'next/navigation':pathToFileURL(require.resolve('next/navigation')).href,
   '@/lib/insights':insightsURL,
 };
-for (const name of ['room-pricing-field-guide','room-design-guides','utilities-field-guide','maintenance-field-guide','conversion-budget-field-guide','resident-operations-field-guide','property-fit-field-guide']) {
-  pageImports['../_components/'+name]=moduleURL('app/insights/_components/'+name+'.tsx',{'react/jsx-runtime':jsxURL,'next/link':linkURL,'@/lib/resident-operations-example.json':residentDataURL,'@/lib/property-fit-example.json':propertyDataURL});
+for (const name of ['room-pricing-field-guide','room-design-guides','utilities-field-guide','maintenance-field-guide','conversion-budget-field-guide','resident-operations-field-guide','property-fit-field-guide','fallback-use-checklist']) {
+  pageImports['../_components/'+name]=moduleURL('app/insights/_components/'+name+'.tsx',{'react/jsx-runtime':jsxURL,'next/link':linkURL,'@/lib/resident-operations-example.json':residentDataURL,'@/lib/property-fit-example.json':propertyDataURL,'@/lib/fallback-example.json':fallbackDataURL});
 }
 const route=await import(moduleURL('app/insights/[slug]/page.tsx',pageImports));
 assert.deepEqual(route.generateStaticParams(),insights.map(({slug})=>({slug})));
@@ -176,4 +180,22 @@ const propertyHeader=['fictional','candidate_id','label','available_record','sta
 const propertyCSV=[propertyHeader,...propertyExample.spaces.map(space=>['true',space.id,space.label,space.record,space.status,space.owner,space.nextAction])].map(row=>row.map(csvCell).join(',')).join('\n')+'\n';
 assert.equal(fs.readFileSync(path.join(root,'public/assets/fictional-property-fit-review.csv'),'utf8').replaceAll('\r\n','\n'),propertyCSV);
 for(const value of ['six candidate spaces','not six rentable rooms','132 square feet','33.5 sq ft','98.5-square-foot remainder','not a property-readiness percentage'])assert.ok(propertyContent.includes(value),'Property-fit explanation contains checked boundary: '+value);
-console.log(JSON.stringify({insightConsolidation:'passed',canonicalGuides:38,permanentRedirects:62,sitemapOwners:70,relatedGuideSetsChecked:38,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:38,residentIssueArithmetic:'passed',residentCsvRowsChecked:6,propertyAreaArithmetic:'passed',propertyCsvRowsChecked:6,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
+const FallbackGuide=(await import(pageImports['../_components/fallback-use-checklist'])).default;
+const fallbackTables=elements(FallbackGuide(),'table');assert.equal(fallbackTables.length,2);
+const cash=value=>value<0?'−$'+Math.abs(value).toLocaleString('en-US'):'$'+value.toLocaleString('en-US');
+assert.equal(fallbackExample.fictional,true);
+assert.deepEqual(fallbackExample.monthlyCases.map(row=>row.grossCollections-row.ownerPaidServices-row.otherPropertyCosts-row.principalAndInterest),[1800,250,-100]);
+const monthlyRows=elements(elements(fallbackTables[0],'tbody')[0],'tr');
+assert.deepEqual(monthlyRows.map(row=>elements(row,'td').map(text)),fallbackExample.monthlyCases.map(row=>[row.grossCollections,row.ownerPaidServices,row.otherPropertyCosts,row.principalAndInterest,row.cashRemainder].map(cash)));
+const transition=fallbackExample.transition;
+assert.equal(transition.vacantMonths*(transition.monthlyPrincipalAndInterest+transition.monthlyVacantPropertyCosts),5500);
+assert.equal(transition.carryCash+transition.workAllowance+transition.leasingAllowance,12500);
+assert.equal(transition.startingCash-transition.totalCashNeed,2500);
+assert.equal(transition.cashLeft-transition.monthlyPrincipalAndInterest-transition.monthlyVacantPropertyCosts,-250);
+const bridgeRows=elements(elements(fallbackTables[1],'tbody')[0],'tr');
+assert.deepEqual(bridgeRows.map(row=>text(elements(row,'td').at(-1))),['$5,500','$7,000','$12,500','$2,500']);
+const fallbackCSV=[['fictional_case','monthly_collections_usd','owner_paid_services_usd','other_property_costs_usd','principal_and_interest_usd','cash_remainder_usd'],...fallbackExample.monthlyCases.map(row=>[row.name,row.grossCollections,row.ownerPaidServices,row.otherPropertyCosts,row.principalAndInterest,row.cashRemainder])].map(row=>row.map(csvCell).join(',')).join('\n')+'\n';
+assert.equal(fs.readFileSync(path.join(root,'public/assets/fictional-fallback-cash-cases.csv'),'utf8'),fallbackCSV);
+const fallbackContent=text(FallbackGuide());
+for(const boundary of ['not net operating income','not local rent estimates','not a recommended reserve','future sale proceeds','fictional'])assert.ok(fallbackContent.includes(boundary));
+console.log(JSON.stringify({fallbackMonthlyCases:3,fallbackTransitionCash:'passed',insightConsolidation:'passed',canonicalGuides:29,permanentRedirects:71,sitemapOwners:61,relatedGuideSetsChecked:29,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:29,residentIssueArithmetic:'passed',residentCsvRowsChecked:6,propertyAreaArithmetic:'passed',propertyCsvRowsChecked:6,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));

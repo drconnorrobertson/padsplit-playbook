@@ -1,0 +1,9 @@
+{
+  "fictional": true,
+  "monthlyCases": [
+    {"name":"Room-by-room proposal","grossCollections":6100,"ownerPaidServices":1350,"otherPropertyCosts":900,"principalAndInterest":2050,"cashRemainder":1800},
+    {"name":"Conventional-rental assumption","grossCollections":3450,"ownerPaidServices":250,"otherPropertyCosts":900,"principalAndInterest":2050,"cashRemainder":250},
+    {"name":"Lower-rent fallback test","grossCollections":3100,"ownerPaidServices":250,"otherPropertyCosts":900,"principalAndInterest":2050,"cashRemainder":-100}
+  ],
+  "transition":{"startingCash":15000,"vacantMonths":2,"monthlyPrincipalAndInterest":2050,"monthlyVacantPropertyCosts":700,"workAllowance":6000,"leasingAllowance":1000,"carryCash":5500,"totalCashNeed":12500,"cashLeft":2500}
+}

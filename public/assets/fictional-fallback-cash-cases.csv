@@ -1,0 +1,4 @@
+fictional_case,monthly_collections_usd,owner_paid_services_usd,other_property_costs_usd,principal_and_interest_usd,cash_remainder_usd
+Room-by-room proposal,6100,1350,900,2050,1800
+Conventional-rental assumption,3450,250,900,2050,250
+Lower-rent fallback test,3100,250,900,2050,-100
