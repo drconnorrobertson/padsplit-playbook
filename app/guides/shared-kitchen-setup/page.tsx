@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: guide.title,
   description: guide.description,
   alternates: { canonical: route },
-  openGraph: { type: "article", title: guide.title, description: guide.description, url, publishedTime: "2026-10-25", modifiedTime: "2026-10-25" },
+  openGraph: { type: "article", title: guide.title, description: guide.description, url, publishedTime: "2026-10-25", modifiedTime: "2026-11-21" },
   twitter: { card: "summary", title: guide.title, description: guide.description },
 };
 const schema = {
@@ -17,7 +17,7 @@ const schema = {
   headline: guide.title,
   description: guide.description,
   datePublished: "2026-10-25",
-  dateModified: "2026-10-25",
+  dateModified: "2026-11-21",
   mainEntityOfPage: url,
   wordCount: guide.wordCount,
   publisher: { "@type": "Organization", name: "PadSplit Playbook", url: "https://www.padsplitplaybookbook.com" },
@@ -27,7 +27,7 @@ export default function SharedKitchenGuide() {
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }} />
     <header className="page-hero">
       <div className="breadcrumb"><Link href="/">Home</Link> / <Link href="/operations">Operations</Link> / Shared kitchen</div>
-      <p className="eyebrow">Independent practical guide · October 25, 2026</p>
+      <p className="eyebrow">Independent practical guide · Published October 25, 2026 · Updated November 21, 2026</p>
       <h1 className="display">{guide.title}</h1>
     </header>
     <div className="article-layout">

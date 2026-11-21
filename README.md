@@ -16,3 +16,5 @@ Nine retired utility variants redirect permanently to `/insights/utilities-field
 Related-guide selection filters duplicate and self links before filling four valid neighbors, so an offset equal to the registry length cannot link a guide to itself. The consolidation gate checks every current related-link set.
 
 Eight repeated room-design variants redirect to `/insights/room-design-checklist`; the distinct `/insights/room-design-mistakes` guide remains. Generic insight pages display publication/update dates and publisher attribution rather than a hardcoded personal review claim or reading time. The November 21 revision reflects that actual provenance and navigation change, not a new publication date or a claimed professional review.
+
+The consolidation gate also scans literal insight links in app/lib/public source, including JSON-fed guide links, and rejects references to retired redirect sources. Link directly to the retained guide.

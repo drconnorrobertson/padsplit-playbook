@@ -26,7 +26,7 @@ export default function sitemap():MetadataRoute.Sitemap {
     ...(insightRoutes.includes(route) || route === "/insights" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/blog/padsplit-property-insurance" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/blog/zoning-occupancy-laws-coliving-rentals" ? { lastModified: "2026-11-21" } : {}),
-    ...(route === "/guides/shared-kitchen-setup" ? { lastModified: "2026-10-25" } : {}),
+    ...(route === "/guides/shared-kitchen-setup" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/guides/maintenance-request-brief" ? { lastModified: "2026-10-26" } : {}),
     changeFrequency: route === "" || route === "/blog" ? "weekly" : "monthly",
     priority: route === "" ? 1 : route.startsWith("/blog/") ? 0.75 : 0.85,

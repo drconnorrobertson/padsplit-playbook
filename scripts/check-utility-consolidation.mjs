@@ -56,6 +56,21 @@ for (const item of insights) {
 }
 assert.deepEqual(getRelatedInsights('not-a-guide'),[]);
 
+// JSON-fed guides and legacy HTML must link directly to current destinations.
+const retiredPaths=new Set(rules.map(rule=>rule.source));
+function sourceFiles(dir) {
+  return fs.readdirSync(dir,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?sourceFiles(path.join(dir,entry.name)):[path.join(dir,entry.name)]);
+}
+for (const dir of ['app','lib','public']) {
+  for (const file of sourceFiles(path.join(root,dir)).filter(file=>/\.(tsx?|json|html)$/.test(file))) {
+    const source=fs.readFileSync(file,'utf8');
+    for (const match of source.matchAll(/["'`]((?:https:\/\/www\.padsplitplaybookbook\.com)?\/insights\/[^"'`?#\s]+)(?:[?#][^"'`]*)?["'`]/g)) {
+      const pathname=match[1].replace('https://www.padsplitplaybookbook.com','').replace(/\/$/,'');
+      assert.ok(!retiredPaths.has(pathname),`Internal source ${path.relative(root,file)} references retired ${pathname}`);
+    }
+  }
+}
+
 // Inspect the actual server component's JSX table content without a native compiler.
 const jsxURL=pathToFileURL(require.resolve('react/jsx-runtime')).href;
 const linkURL=pathToFileURL(require.resolve('next/link')).href;
