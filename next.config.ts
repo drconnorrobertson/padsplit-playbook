@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
+import { utilityCanonicalSlug, utilityRedirectSlugs } from "./lib/utility-canonical";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return utilityRedirectSlugs.map((slug) => ({
+      source: `/insights/${slug}`,
+      destination: `/insights/${utilityCanonicalSlug}`,
+      permanent: true,
+    }));
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "miro.medium.com", pathname: "/**" },

@@ -1,3 +1,5 @@
+import { utilityRedirectSlugs } from "./utility-canonical";
+
 export const topics = [
   { slug: "market-legality", label: "Market Legality", focus: "verify whether the exact address and intended occupancy model can operate under current local rules", evidence: "ordinances, zoning maps, permit records, occupancy classifications, enforcement history, and written professional guidance", risk: "a revenue model cannot repair an illegal or uninsurable use" },
   { slug: "property-fit", label: "Property Fit", focus: "test circulation, bathrooms, parking, privacy, egress, mechanical capacity, and credible alternate use", evidence: "plans, measurements, inspection findings, utility capacity, parking rules, and contractor observations", risk: "headline bedroom count can hide a layout that performs poorly for residents and operators" },
@@ -31,7 +33,13 @@ export const insights = topics.flatMap((topic, topicIndex) => lenses.map((lens, 
   goal: lens.goal,
   slug: `${topic.slug}-${lens.slug}`,
   number: topicIndex * lenses.length + lensIndex + 1,
-})));
+}))).filter((item) => !utilityRedirectSlugs.includes(item.slug));
 
 export type Insight = (typeof insights)[number];
 export const getInsight = (slug: string) => insights.find((item) => item.slug === slug);
+
+export function getRelatedInsights(slug: string) {
+  const index = insights.findIndex((item) => item.slug === slug);
+  if (index < 0) return [];
+  return [1, 10, 37, 73].map((offset) => insights[(index + offset) % insights.length]);
+}

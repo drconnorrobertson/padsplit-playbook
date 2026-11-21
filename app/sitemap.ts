@@ -25,6 +25,7 @@ export default function sitemap():MetadataRoute.Sitemap {
     ...(route === "/blog/padsplit-property-insurance" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/blog/zoning-occupancy-laws-coliving-rentals" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/insights/room-pricing-field-guide" ? { lastModified: "2026-11-21" } : {}),
+    ...(["/insights/utilities-field-guide", "/insights"].includes(route) ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/guides/shared-kitchen-setup" ? { lastModified: "2026-10-25" } : {}),
     ...(route === "/guides/maintenance-request-brief" ? { lastModified: "2026-10-26" } : {}),
     changeFrequency: route === "" || route === "/blog" ? "weekly" : "monthly",

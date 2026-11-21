@@ -4,15 +4,15 @@ import { insights, topics } from "@/lib/insights";
 
 export const metadata: Metadata = {
   title: "Co-Living Learning Library",
-  description: "Explore 100 evidence-led guides to PadSplit property selection, underwriting, conversion, compliance, resident operations, and fallback planning.",
-  alternates: { canonical: "/insights" }, openGraph: {"type": "website", "url": "/insights", "title": "Co-Living Learning Library", "description": "Explore 100 evidence-led guides to PadSplit property selection, underwriting, conversion, compliance, resident operations, and fallback planning.", "siteName": "PadSplit Playbook"},
+  description: `Explore ${insights.length} guides to PadSplit property selection, underwriting, conversion, compliance, resident operations, and fallback planning.`,
+  alternates: { canonical: "/insights" }, openGraph: {"type": "website", "url": "/insights", "title": "Co-Living Learning Library", "description": `Explore ${insights.length} guides to PadSplit property selection, underwriting, conversion, compliance, resident operations, and fallback planning.`, "siteName": "PadSplit Playbook"},
 };
 
 export default function Insights() {
   return <>
     <header className="page-hero">
       <div className="breadcrumb"><Link href="/">Home</Link> / Insights</div>
-      <p className="eyebrow">100 guides · 10 topic clusters</p>
+      <p className="eyebrow">{insights.length} guides · {topics.length} topic clusters</p>
       <h1 className="display">The co-living <em>decision</em> library.</h1>
       <p className="lede">Evidence-led field notes for testing the address, conversion, economics, safety, resident experience, and fallback plan before capital is committed.</p>
     </header>

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getInsight, insights } from "@/lib/insights";
+import { getInsight, getRelatedInsights, insights } from "@/lib/insights";
 import RoomPricingFieldGuide, { roomPricingTitle, roomPricingDescription } from "../_components/room-pricing-field-guide";
 
 import RoomDesignGuide, { roomDesignPages } from "../_components/room-design-guides";
+import UtilitiesFieldGuide, { utilitiesTitle, utilitiesDescription } from "../_components/utilities-field-guide";
 
 const base = "https://www.padsplitplaybookbook.com";
 export const dynamicParams = false;
@@ -14,6 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const item = getInsight(slug);
   if (!item) return {};
+  if (slug === "utilities-field-guide") return { title: utilitiesTitle, description: utilitiesDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: utilitiesTitle, description: utilitiesDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
   if (slug === "room-pricing-field-guide") return { title: roomPricingTitle, description: roomPricingDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: roomPricingTitle, description: roomPricingDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
   if (slug === "room-design-checklist" || slug === "room-design-mistakes") {
     const page = roomDesignPages[slug];
@@ -27,7 +29,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const item = getInsight(slug);
   if (!item) notFound();
-  const related = [insights[item.number % 100], insights[(item.number + 9) % 100], insights[(item.number + 36) % 100], insights[(item.number + 72) % 100]];
+  const related = getRelatedInsights(slug);
   const questions = [
     `What fact would cause us to change the current conclusion about ${item.label.toLowerCase()}?`,
     "Which source is primary, who prepared it, and how current is it?",
@@ -39,6 +41,13 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
     { "@type": "Article", headline: `${item.label}: ${item.lens}`, datePublished: "2026-09-23", dateModified: "2026-09-23", mainEntityOfPage: `${base}/insights/${item.slug}`, author: { "@type": "Person", name: "Dr. Connor Robertson", url: "https://www.drconnorrobertson.com" }, publisher: { "@type": "Organization", name: "PadSplit Playbook", url: base }, about: item.label },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: base }, { "@type": "ListItem", position: 2, name: "Insights", item: `${base}/insights` }, { "@type": "ListItem", position: 3, name: `${item.label}: ${item.lens}`, item: `${base}/insights/${item.slug}` }] },
   ] };
+  if (slug === "utilities-field-guide") {
+    const article = schema["@graph"][0];
+    article.headline = utilitiesTitle;
+    article.dateModified = "2026-11-21";
+    article.author = { "@type": "Organization", name: "PadSplit Playbook", url: base };
+    return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replaceAll("<", "\\u003c") }} /><UtilitiesFieldGuide /></>;
+  }
   if (slug === "room-design-checklist" || slug === "room-design-mistakes") {
     const page = roomDesignPages[slug];
     const article = schema["@graph"][0];
@@ -64,7 +73,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
       <div className="insight-meta"><span>Reviewed September 23, 2026</span><span>By Dr. Connor Robertson</span><span>8 minute read</span></div>
     </header>
     <div className="article-layout insight-article-layout">
-      <aside className="toc"><b>On this page</b><a href="#frame">Frame the decision</a><a href="#evidence">Build the file</a><a href="#economics">Test the downside</a><a href="#implementation">Implement and review</a><Link href="/insights">All 100 guides</Link></aside>
+      <aside className="toc"><b>On this page</b><a href="#frame">Frame the decision</a><a href="#evidence">Build the file</a><a href="#economics">Test the downside</a><a href="#implementation">Implement and review</a><Link href="/insights">All {insights.length} guides</Link></aside>
       <article className="prose insight-prose">
         <p className="article-intro">A promising room-by-room opportunity can still be the wrong property when {item.label.toLowerCase()} is supported only by an optimistic assumption. Treat the first answer as a hypothesis, identify the source, and decide what would disprove it.</p>
         <p>The central discipline is to {item.focus}. This guide is for property owners and operators evaluating workforce co-living. It organizes better diligence; it does not replace current local legal, lending, insurance, construction, tax, or safety advice.</p>
