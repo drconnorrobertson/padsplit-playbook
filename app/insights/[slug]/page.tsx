@@ -11,6 +11,8 @@ import MaintenanceFieldGuide, { maintenanceTitle, maintenanceDescription } from 
 
 const genericAnchorStyle = { scrollMarginTop: "120px" };
 const base = "https://www.padsplitplaybookbook.com";
+// Insight editorial attribution is independent of the site-level book author.
+const insightProvenance: Metadata = { authors: [{ name: "PadSplit Playbook", url: base }], creator: "PadSplit Playbook", publisher: "PadSplit Playbook" };
 export const dynamicParams = false;
 export function generateStaticParams() { return insights.map(({ slug }) => ({ slug })); }
 
@@ -18,15 +20,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const item = getInsight(slug);
   if (!item) return {};
-  if (slug === "maintenance-field-guide") return { title: maintenanceTitle, description: maintenanceDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: maintenanceTitle, description: maintenanceDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
-  if (slug === "utilities-field-guide") return { title: utilitiesTitle, description: utilitiesDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: utilitiesTitle, description: utilitiesDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
-  if (slug === "room-pricing-field-guide") return { title: roomPricingTitle, description: roomPricingDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: roomPricingTitle, description: roomPricingDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
+  if (slug === "maintenance-field-guide") return { ...insightProvenance, title: maintenanceTitle, description: maintenanceDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: maintenanceTitle, description: maintenanceDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
+  if (slug === "utilities-field-guide") return { ...insightProvenance, title: utilitiesTitle, description: utilitiesDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: utilitiesTitle, description: utilitiesDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
+  if (slug === "room-pricing-field-guide") return { ...insightProvenance, title: roomPricingTitle, description: roomPricingDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: roomPricingTitle, description: roomPricingDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
   if (slug === "room-design-checklist" || slug === "room-design-mistakes") {
     const page = roomDesignPages[slug];
-    return { title: page.title, description: page.description, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: page.title, description: page.description, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
+    return { ...insightProvenance, title: page.title, description: page.description, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: page.title, description: page.description, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
   }
   const description = `${item.lens} for ${item.label.toLowerCase()}: evidence, risks, questions, downside tests, and implementation steps for co-living operators.`;
-  return { title: `${item.label}: ${item.lens}`, description, alternates: { canonical: `/insights/${item.slug}` }, openGraph: { type: "article", title: `${item.label}: ${item.lens}`, description, url: `/insights/${item.slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
+  return { ...insightProvenance, title: `${item.label}: ${item.lens}`, description, alternates: { canonical: `/insights/${item.slug}` }, openGraph: { type: "article", title: `${item.label}: ${item.lens}`, description, url: `/insights/${item.slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
 }
 
 export default async function InsightPage({ params }: { params: Promise<{ slug: string }> }) {
