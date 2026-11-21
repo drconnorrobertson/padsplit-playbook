@@ -21,11 +21,11 @@ export default function sitemap():MetadataRoute.Sitemap {
   const routes = ["", "/padsplit-guide", "/underwriting", "/operations", "/guides/shared-kitchen-setup", "/guides/maintenance-request-brief", "/insights", "/about", ...insightRoutes, ...legacyRoutes];
   return routes.map((route) => ({
     url: `${base}${route}`,
-    ...(["/insights/room-design-checklist", "/insights/room-design-mistakes"].includes(route) ? { lastModified: "2026-11-21" } : {}),
+    // All current insights changed on this date: original guides were developed
+    // earlier today; the remaining templates received provenance/navigation fixes.
+    ...(insightRoutes.includes(route) || route === "/insights" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/blog/padsplit-property-insurance" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/blog/zoning-occupancy-laws-coliving-rentals" ? { lastModified: "2026-11-21" } : {}),
-    ...(route === "/insights/room-pricing-field-guide" ? { lastModified: "2026-11-21" } : {}),
-    ...(["/insights/utilities-field-guide", "/insights/maintenance-field-guide", "/insights"].includes(route) ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/guides/shared-kitchen-setup" ? { lastModified: "2026-10-25" } : {}),
     ...(route === "/guides/maintenance-request-brief" ? { lastModified: "2026-10-26" } : {}),
     changeFrequency: route === "" || route === "/blog" ? "weekly" : "monthly",
