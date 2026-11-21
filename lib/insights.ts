@@ -1,3 +1,4 @@
+import { budgetRedirectSlugs } from "./budget-canonical";
 import { designRedirectSlugs } from "./design-canonical";
 import { pricingRedirectSlugs } from "./pricing-canonical";
 import { maintenanceRedirectSlugs } from "./maintenance-canonical";
@@ -36,7 +37,7 @@ export const insights = topics.flatMap((topic, topicIndex) => lenses.map((lens, 
   goal: lens.goal,
   slug: `${topic.slug}-${lens.slug}`,
   number: topicIndex * lenses.length + lensIndex + 1,
-}))).filter((item) => !utilityRedirectSlugs.includes(item.slug) && !maintenanceRedirectSlugs.includes(item.slug) && !pricingRedirectSlugs.includes(item.slug) && !designRedirectSlugs.includes(item.slug));
+}))).filter((item) => !utilityRedirectSlugs.includes(item.slug) && !maintenanceRedirectSlugs.includes(item.slug) && !pricingRedirectSlugs.includes(item.slug) && !designRedirectSlugs.includes(item.slug) && !budgetRedirectSlugs.includes(item.slug));
 
 export type Insight = (typeof insights)[number];
 export const getInsight = (slug: string) => insights.find((item) => item.slug === slug);

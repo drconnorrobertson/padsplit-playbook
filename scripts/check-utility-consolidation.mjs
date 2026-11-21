@@ -21,15 +21,17 @@ const pricingURL=moduleURL('lib/pricing-canonical.ts');
 const pricing=await import(pricingURL);
 const designURL=moduleURL('lib/design-canonical.ts');
 const design=await import(designURL);
-const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL});
+const budgetURL=moduleURL('lib/budget-canonical.ts');
+const budget=await import(budgetURL);
+const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL,'./budget-canonical':budgetURL});
 const {insights,getRelatedInsights} = await import(insightsURL);
-const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL}))).default;
+const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL,'./lib/budget-canonical':budgetURL}))).default;
 const sitemap = (await import(moduleURL('app/sitemap.ts',{'@/lib/insights':insightsURL}))).default();
-const clusters=[{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8}];
+const clusters=[{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8},{slug:budget.budgetCanonicalSlug,redirects:budget.budgetRedirectSlugs,prefix:'conversion-budget-'}];
 const rules = await config.redirects();
-assert.equal(insights.length,65);
-assert.equal(rules.length,35);
-assert.equal(new Set(rules.map(rule=>rule.source)).size,35);
+assert.equal(insights.length,56);
+assert.equal(rules.length,44);
+assert.equal(new Set(rules.map(rule=>rule.source)).size,44);
 for (const cluster of clusters) {
   const destination='/insights/'+cluster.slug;
   assert.equal(insights.filter(item=>item.slug.startsWith(cluster.prefix)).length,cluster.retainedCount||1);
@@ -44,8 +46,8 @@ for (const cluster of clusters) {
   }
   assert.equal(sitemap.find(item=>new URL(item.url).pathname===destination).lastModified,'2026-11-21');
 }
-assert.equal(sitemap.length,97);
-assert.equal(new Set(sitemap.map(item=>item.url)).size,97);
+assert.equal(sitemap.length,88);
+assert.equal(new Set(sitemap.map(item=>item.url)).size,88);
 assert.ok(insights.some(item=>item.slug==='room-design-mistakes'),'Keep the distinct worked-mistakes guide');
 for (const item of insights) assert.equal(sitemap.find(entry=>new URL(entry.url).pathname==='/insights/'+item.slug).lastModified,'2026-11-21');
 for (const item of insights) {
@@ -74,6 +76,30 @@ for (const dir of ['app','lib','public']) {
 // Inspect the actual server component's JSX table content without a native compiler.
 const jsxURL=pathToFileURL(require.resolve('react/jsx-runtime')).href;
 const linkURL=pathToFileURL(require.resolve('next/link')).href;
+// Exercise the actual route's metadata/static-params exports, including every
+// specialized component's metadata constants, without loading a native compiler.
+const pageImports={
+  'react/jsx-runtime':jsxURL,
+  'next/link':linkURL,
+  'next/navigation':pathToFileURL(require.resolve('next/navigation')).href,
+  '@/lib/insights':insightsURL,
+};
+for (const name of ['room-pricing-field-guide','room-design-guides','utilities-field-guide','maintenance-field-guide','conversion-budget-field-guide']) {
+  pageImports['../_components/'+name]=moduleURL('app/insights/_components/'+name+'.tsx',{'react/jsx-runtime':jsxURL,'next/link':linkURL});
+}
+const route=await import(moduleURL('app/insights/[slug]/page.tsx',pageImports));
+assert.deepEqual(route.generateStaticParams(),insights.map(({slug})=>({slug})));
+for (const item of insights) {
+  const metadata=await route.generateMetadata({params:Promise.resolve({slug:item.slug})});
+  assert.equal(metadata.alternates.canonical,'/insights/'+item.slug);
+  assert.equal(metadata.twitter?.title,metadata.openGraph.title,'Per-article share title: '+item.slug);
+  assert.equal(metadata.twitter?.description,metadata.description,'Per-article share description: '+item.slug);
+  assert.equal(metadata.openGraph.description,metadata.description);
+  assert.equal(metadata.openGraph.publishedTime,'2026-09-23');
+  assert.equal(metadata.openGraph.modifiedTime,'2026-11-21');
+  assert.equal(metadata.authors[0].name,'PadSplit Playbook');
+}
+
 const Guide=(await import(moduleURL('app/insights/_components/utilities-field-guide.tsx',{'react/jsx-runtime':jsxURL,'next/link':linkURL}))).default;
 function text(node) {
   if (node==null || typeof node==='boolean') return '';
@@ -91,4 +117,4 @@ assert.equal(34200-centsA,2400);
 assert.equal(centsA/150,212);
 assert.equal(Math.round(centsB/180),203);
 assert.ok(content.includes('fictional') && content.includes('not utility tariffs'));
-console.log(JSON.stringify({insightConsolidation:'passed',canonicalGuides:65,permanentRedirects:35,sitemapOwners:97,relatedGuideSetsChecked:65,fictionalBillArithmetic:'passed',scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
+console.log(JSON.stringify({insightConsolidation:'passed',canonicalGuides:56,permanentRedirects:44,sitemapOwners:88,relatedGuideSetsChecked:56,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:56,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
