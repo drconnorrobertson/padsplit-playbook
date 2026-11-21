@@ -16,7 +16,7 @@ export default function ResidentOperationsFieldGuide() {
     </header>
     <div className="article-layout insight-article-layout">
       <aside className="toc"><b>On this page</b><a href="#intake">Identify the issue</a><a href="#example">Read the handoff</a><a href="#measurement">Measure the right event</a><a href="#updates">Keep update promises</a><a href="#privacy">Protect private requests</a><a href="#closure">Verify closure</a></aside>
-      <article className="prose insight-prose">
+      <article className="prose insight-prose" style={{ minWidth: 0 }}>
         <p className="article-intro">The person reporting a shared-home problem needs to know who is handling it and what happens next. A busy message channel can look responsive while the underlying issue remains unowned. Build the operating record around the issue, then attach the messages that help explain it.</p>
         <p>All reports, times, roles and outcomes below are fictional. The example is a routine communication exercise, not actual resident data, a PadSplit service standard or a promised response time. Emergency or immediate safety concerns need the established emergency route and emergency services when appropriate; the routine queue below is not an emergency-response procedure.</p>
         <h2 id="intake" style={anchorStyle}>1. Link repeat reports without losing their context</h2>
