@@ -19,20 +19,22 @@ const maintenanceURL=moduleURL('lib/maintenance-canonical.ts');
 const maintenance=await import(maintenanceURL);
 const pricingURL=moduleURL('lib/pricing-canonical.ts');
 const pricing=await import(pricingURL);
-const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL});
+const designURL=moduleURL('lib/design-canonical.ts');
+const design=await import(designURL);
+const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL});
 const {insights,getRelatedInsights} = await import(insightsURL);
-const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL}))).default;
+const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL}))).default;
 const sitemap = (await import(moduleURL('app/sitemap.ts',{'@/lib/insights':insightsURL}))).default();
-const clusters=[{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'}];
+const clusters=[{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8}];
 const rules = await config.redirects();
-assert.equal(insights.length,73);
-assert.equal(rules.length,27);
-assert.equal(new Set(rules.map(rule=>rule.source)).size,27);
+assert.equal(insights.length,65);
+assert.equal(rules.length,35);
+assert.equal(new Set(rules.map(rule=>rule.source)).size,35);
 for (const cluster of clusters) {
   const destination='/insights/'+cluster.slug;
-  assert.equal(insights.filter(item=>item.slug.startsWith(cluster.prefix)).length,1);
+  assert.equal(insights.filter(item=>item.slug.startsWith(cluster.prefix)).length,cluster.retainedCount||1);
   assert.ok(insights.some(item=>item.slug===cluster.slug));
-  assert.equal(cluster.redirects.length,9);
+  assert.equal(cluster.redirects.length,cluster.expectedRedirects||9);
   for (const slug of cluster.redirects) {
     assert.ok(!insights.some(item=>item.slug===slug),'Retired route excluded from cards and static params');
     const rule=rules.find(rule=>rule.source==='/insights/'+slug);
@@ -42,8 +44,10 @@ for (const cluster of clusters) {
   }
   assert.equal(sitemap.find(item=>new URL(item.url).pathname===destination).lastModified,'2026-11-21');
 }
-assert.equal(sitemap.length,105);
-assert.equal(new Set(sitemap.map(item=>item.url)).size,105);
+assert.equal(sitemap.length,97);
+assert.equal(new Set(sitemap.map(item=>item.url)).size,97);
+assert.ok(insights.some(item=>item.slug==='room-design-mistakes'),'Keep the distinct worked-mistakes guide');
+for (const item of insights) assert.equal(sitemap.find(entry=>new URL(entry.url).pathname==='/insights/'+item.slug).lastModified,'2026-11-21');
 for (const item of insights) {
   const related=getRelatedInsights(item.slug);
   assert.equal(related.length,4);
@@ -72,4 +76,4 @@ assert.equal(34200-centsA,2400);
 assert.equal(centsA/150,212);
 assert.equal(Math.round(centsB/180),203);
 assert.ok(content.includes('fictional') && content.includes('not utility tariffs'));
-console.log(JSON.stringify({insightConsolidation:'passed',canonicalGuides:73,permanentRedirects:27,sitemapOwners:105,relatedGuideSetsChecked:73,fictionalBillArithmetic:'passed',scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
+console.log(JSON.stringify({insightConsolidation:'passed',canonicalGuides:65,permanentRedirects:35,sitemapOwners:97,relatedGuideSetsChecked:65,fictionalBillArithmetic:'passed',scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
