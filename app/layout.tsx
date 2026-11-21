@@ -50,7 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <footer>
           <div className="footer-grid">
             <div><div className="brand brand-footer"><span className="brand-mark">P</span><span>PadSplit<br/><b>Playbook</b></span></div><p>A research and education project from Dr. Connor Robertson about the systems behind responsible workforce co-living.</p></div>
-            <div><p className="eyebrow">Explore</p>{nav.slice(0,4).map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</div>
+            <div><p className="eyebrow">Explore</p>{nav.slice(0,4).map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}<a href="/blog">Book articles</a><a href="/chapters">Book chapters</a><a href="/resources">Book resources</a><a href="/author">Book author</a><a href="/contact">Contact</a></div>
             <div><p className="eyebrow">Entity</p><a href="https://www.drconnorrobertson.com" target="_blank">Official website</a><a href="https://www.linkedin.com/in/dr-connor-robertson" target="_blank">LinkedIn</a><a href="https://medium.com/@dr.connor.robertson" target="_blank">Medium</a></div>
             <div><p className="eyebrow">Start here</p><p>Learn the model before you model the returns.</p><Link href="/padsplit-guide" className="text-link">Open the field guide →</Link></div>
           </div>
