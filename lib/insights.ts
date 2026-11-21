@@ -1,3 +1,4 @@
+import { pricingRedirectSlugs } from "./pricing-canonical";
 import { maintenanceRedirectSlugs } from "./maintenance-canonical";
 import { utilityRedirectSlugs } from "./utility-canonical";
 
@@ -34,7 +35,7 @@ export const insights = topics.flatMap((topic, topicIndex) => lenses.map((lens, 
   goal: lens.goal,
   slug: `${topic.slug}-${lens.slug}`,
   number: topicIndex * lenses.length + lensIndex + 1,
-}))).filter((item) => !utilityRedirectSlugs.includes(item.slug) && !maintenanceRedirectSlugs.includes(item.slug));
+}))).filter((item) => !utilityRedirectSlugs.includes(item.slug) && !maintenanceRedirectSlugs.includes(item.slug) && !pricingRedirectSlugs.includes(item.slug));
 
 export type Insight = (typeof insights)[number];
 export const getInsight = (slug: string) => insights.find((item) => item.slug === slug);
@@ -42,5 +43,10 @@ export const getInsight = (slug: string) => insights.find((item) => item.slug ==
 export function getRelatedInsights(slug: string) {
   const index = insights.findIndex((item) => item.slug === slug);
   if (index < 0) return [];
-  return [1, 10, 37, 73].map((offset) => insights[(index + offset) % insights.length]);
+  const preferred = [1, 10, 37, 73].map((offset) => insights[(index + offset) % insights.length]);
+  // Registry size can change after consolidation; offsets may wrap to self or
+  // repeat. Keep preferred neighbors, then fill from valid distinct guides.
+  return [...new Set([...preferred, ...insights])]
+    .filter((item) => item.slug !== slug)
+    .slice(0, 4);
 }
