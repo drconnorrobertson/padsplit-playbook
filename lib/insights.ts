@@ -1,3 +1,4 @@
+import { maintenanceRedirectSlugs } from "./maintenance-canonical";
 import { utilityRedirectSlugs } from "./utility-canonical";
 
 export const topics = [
@@ -33,7 +34,7 @@ export const insights = topics.flatMap((topic, topicIndex) => lenses.map((lens, 
   goal: lens.goal,
   slug: `${topic.slug}-${lens.slug}`,
   number: topicIndex * lenses.length + lensIndex + 1,
-}))).filter((item) => !utilityRedirectSlugs.includes(item.slug));
+}))).filter((item) => !utilityRedirectSlugs.includes(item.slug) && !maintenanceRedirectSlugs.includes(item.slug));
 
 export type Insight = (typeof insights)[number];
 export const getInsight = (slug: string) => insights.find((item) => item.slug === slug);

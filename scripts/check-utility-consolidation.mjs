@@ -15,26 +15,33 @@ function moduleURL(file, replacements={}) {
 }
 const canonicalURL = moduleURL('lib/utility-canonical.ts');
 const canonical = await import(canonicalURL);
-const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL});
+const maintenanceURL=moduleURL('lib/maintenance-canonical.ts');
+const maintenance=await import(maintenanceURL);
+const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL});
 const {insights,getRelatedInsights} = await import(insightsURL);
-const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL}))).default;
+const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL}))).default;
 const sitemap = (await import(moduleURL('app/sitemap.ts',{'@/lib/insights':insightsURL}))).default();
-const destination = '/insights/'+canonical.utilityCanonicalSlug;
+const clusters=[{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'}];
 const rules = await config.redirects();
-assert.equal(insights.length,91);
-assert.equal(insights.filter(item=>item.slug.startsWith('utilities-')).length,1);
-assert.equal(rules.length,9);
-assert.equal(new Set(rules.map(rule=>rule.source)).size,9);
-for (const slug of canonical.utilityRedirectSlugs) {
-  assert.ok(!insights.some(item=>item.slug===slug),'Retired route excluded from cards and static params');
-  const rule=rules.find(rule=>rule.source==='/insights/'+slug);
-  assert.equal(rule.destination,destination);
-  assert.equal(rule.permanent,true);
-  assert.ok(!sitemap.some(item=>new URL(item.url).pathname==='/insights/'+slug),'Retired URL excluded from sitemap');
+assert.equal(insights.length,82);
+assert.equal(rules.length,18);
+assert.equal(new Set(rules.map(rule=>rule.source)).size,18);
+for (const cluster of clusters) {
+  const destination='/insights/'+cluster.slug;
+  assert.equal(insights.filter(item=>item.slug.startsWith(cluster.prefix)).length,1);
+  assert.ok(insights.some(item=>item.slug===cluster.slug));
+  assert.equal(cluster.redirects.length,9);
+  for (const slug of cluster.redirects) {
+    assert.ok(!insights.some(item=>item.slug===slug),'Retired route excluded from cards and static params');
+    const rule=rules.find(rule=>rule.source==='/insights/'+slug);
+    assert.equal(rule.destination,destination);
+    assert.equal(rule.permanent,true);
+    assert.ok(!sitemap.some(item=>new URL(item.url).pathname==='/insights/'+slug),'Retired URL excluded from sitemap');
+  }
+  assert.equal(sitemap.find(item=>new URL(item.url).pathname===destination).lastModified,'2026-11-21');
 }
-assert.equal(sitemap.length,123);
-assert.equal(new Set(sitemap.map(item=>item.url)).size,123);
-assert.equal(sitemap.find(item=>new URL(item.url).pathname===destination).lastModified,'2026-11-21');
+assert.equal(sitemap.length,114);
+assert.equal(new Set(sitemap.map(item=>item.url)).size,114);
 for (const item of insights) {
   const related=getRelatedInsights(item.slug);
   assert.equal(related.length,4);
@@ -63,4 +70,4 @@ assert.equal(34200-centsA,2400);
 assert.equal(centsA/150,212);
 assert.equal(Math.round(centsB/180),203);
 assert.ok(content.includes('fictional') && content.includes('not utility tariffs'));
-console.log(JSON.stringify({utilityConsolidation:'passed',canonicalGuides:91,permanentRedirects:9,sitemapOwners:123,relatedGuideSetsChecked:91,fictionalBillArithmetic:'passed',scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
+console.log(JSON.stringify({insightConsolidation:'passed',canonicalGuides:82,permanentRedirects:18,sitemapOwners:114,relatedGuideSetsChecked:82,fictionalBillArithmetic:'passed',scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));

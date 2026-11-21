@@ -7,6 +7,8 @@ import RoomPricingFieldGuide, { roomPricingTitle, roomPricingDescription } from 
 import RoomDesignGuide, { roomDesignPages } from "../_components/room-design-guides";
 import UtilitiesFieldGuide, { utilitiesTitle, utilitiesDescription } from "../_components/utilities-field-guide";
 
+import MaintenanceFieldGuide, { maintenanceTitle, maintenanceDescription } from "../_components/maintenance-field-guide";
+
 const base = "https://www.padsplitplaybookbook.com";
 export const dynamicParams = false;
 export function generateStaticParams() { return insights.map(({ slug }) => ({ slug })); }
@@ -15,6 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const item = getInsight(slug);
   if (!item) return {};
+  if (slug === "maintenance-field-guide") return { title: maintenanceTitle, description: maintenanceDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: maintenanceTitle, description: maintenanceDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
   if (slug === "utilities-field-guide") return { title: utilitiesTitle, description: utilitiesDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: utilitiesTitle, description: utilitiesDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
   if (slug === "room-pricing-field-guide") return { title: roomPricingTitle, description: roomPricingDescription, alternates: { canonical: `/insights/${slug}` }, openGraph: { type: "article", title: roomPricingTitle, description: roomPricingDescription, url: `/insights/${slug}`, publishedTime: "2026-09-23", modifiedTime: "2026-11-21" } };
   if (slug === "room-design-checklist" || slug === "room-design-mistakes") {
@@ -41,6 +44,13 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
     { "@type": "Article", headline: `${item.label}: ${item.lens}`, datePublished: "2026-09-23", dateModified: "2026-09-23", mainEntityOfPage: `${base}/insights/${item.slug}`, author: { "@type": "Person", name: "Dr. Connor Robertson", url: "https://www.drconnorrobertson.com" }, publisher: { "@type": "Organization", name: "PadSplit Playbook", url: base }, about: item.label },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: base }, { "@type": "ListItem", position: 2, name: "Insights", item: `${base}/insights` }, { "@type": "ListItem", position: 3, name: `${item.label}: ${item.lens}`, item: `${base}/insights/${item.slug}` }] },
   ] };
+  if (slug === "maintenance-field-guide") {
+    const article = schema["@graph"][0];
+    article.headline = maintenanceTitle;
+    article.dateModified = "2026-11-21";
+    article.author = { "@type": "Organization", name: "PadSplit Playbook", url: base };
+    return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replaceAll("<", "\\u003c") }} /><MaintenanceFieldGuide /></>;
+  }
   if (slug === "utilities-field-guide") {
     const article = schema["@graph"][0];
     article.headline = utilitiesTitle;

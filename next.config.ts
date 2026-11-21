@@ -1,13 +1,19 @@
 import type { NextConfig } from "next";
 import { utilityCanonicalSlug, utilityRedirectSlugs } from "./lib/utility-canonical";
 
+import { maintenanceCanonicalSlug, maintenanceRedirectSlugs } from "./lib/maintenance-canonical";
+
 const nextConfig: NextConfig = {
   async redirects() {
-    return utilityRedirectSlugs.map((slug) => ({
+    return [...utilityRedirectSlugs.map((slug) => ({
       source: `/insights/${slug}`,
       destination: `/insights/${utilityCanonicalSlug}`,
       permanent: true,
-    }));
+    })), ...maintenanceRedirectSlugs.map((slug) => ({
+      source: `/insights/${slug}`,
+      destination: `/insights/${maintenanceCanonicalSlug}`,
+      permanent: true,
+    }))];
   },
   images: {
     remotePatterns: [
