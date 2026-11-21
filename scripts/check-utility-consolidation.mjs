@@ -27,15 +27,19 @@ const residentURL=moduleURL('lib/resident-canonical.ts');
 const resident=await import(residentURL);
 const residentExample=JSON.parse(fs.readFileSync(path.join(root,'lib/resident-operations-example.json'),'utf8'));
 const residentDataURL='data:text/javascript;base64,'+Buffer.from('export default '+JSON.stringify(residentExample)).toString('base64');
-const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL,'./budget-canonical':budgetURL,'./resident-canonical':residentURL});
+const propertyFitURL=moduleURL('lib/property-fit-canonical.ts');
+const propertyFit=await import(propertyFitURL);
+const propertyExample=JSON.parse(fs.readFileSync(path.join(root,'lib/property-fit-example.json'),'utf8'));
+const propertyDataURL='data:text/javascript;base64,'+Buffer.from('export default '+JSON.stringify(propertyExample)).toString('base64');
+const insightsURL = moduleURL('lib/insights.ts',{'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL,'./budget-canonical':budgetURL,'./resident-canonical':residentURL,'./property-fit-canonical':propertyFitURL});
 const {insights,getRelatedInsights} = await import(insightsURL);
-const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL,'./lib/budget-canonical':budgetURL,'./lib/resident-canonical':residentURL}))).default;
+const config = (await import(moduleURL('next.config.ts',{'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL,'./lib/budget-canonical':budgetURL,'./lib/resident-canonical':residentURL,'./lib/property-fit-canonical':propertyFitURL}))).default;
 const sitemap = (await import(moduleURL('app/sitemap.ts',{'@/lib/insights':insightsURL}))).default();
-const clusters=[{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8},{slug:budget.budgetCanonicalSlug,redirects:budget.budgetRedirectSlugs,prefix:'conversion-budget-'},{slug:resident.residentCanonicalSlug,redirects:resident.residentRedirectSlugs,prefix:'resident-operations-'}];
+const clusters=[{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8},{slug:budget.budgetCanonicalSlug,redirects:budget.budgetRedirectSlugs,prefix:'conversion-budget-'},{slug:resident.residentCanonicalSlug,redirects:resident.residentRedirectSlugs,prefix:'resident-operations-'},{slug:propertyFit.propertyFitCanonicalSlug,redirects:propertyFit.propertyFitRedirectSlugs,prefix:'property-fit-'}];
 const rules = await config.redirects();
-assert.equal(insights.length,47);
-assert.equal(rules.length,53);
-assert.equal(new Set(rules.map(rule=>rule.source)).size,53);
+assert.equal(insights.length,38);
+assert.equal(rules.length,62);
+assert.equal(new Set(rules.map(rule=>rule.source)).size,62);
 for (const cluster of clusters) {
   const destination='/insights/'+cluster.slug;
   assert.equal(insights.filter(item=>item.slug.startsWith(cluster.prefix)).length,cluster.retainedCount||1);
@@ -50,8 +54,8 @@ for (const cluster of clusters) {
   }
   assert.equal(sitemap.find(item=>new URL(item.url).pathname===destination).lastModified,'2026-11-21');
 }
-assert.equal(sitemap.length,79);
-assert.equal(new Set(sitemap.map(item=>item.url)).size,79);
+assert.equal(sitemap.length,70);
+assert.equal(new Set(sitemap.map(item=>item.url)).size,70);
 assert.ok(insights.some(item=>item.slug==='room-design-mistakes'),'Keep the distinct worked-mistakes guide');
 for (const item of insights) assert.equal(sitemap.find(entry=>new URL(entry.url).pathname==='/insights/'+item.slug).lastModified,'2026-11-21');
 for (const item of insights) {
@@ -88,8 +92,8 @@ const pageImports={
   'next/navigation':pathToFileURL(require.resolve('next/navigation')).href,
   '@/lib/insights':insightsURL,
 };
-for (const name of ['room-pricing-field-guide','room-design-guides','utilities-field-guide','maintenance-field-guide','conversion-budget-field-guide','resident-operations-field-guide']) {
-  pageImports['../_components/'+name]=moduleURL('app/insights/_components/'+name+'.tsx',{'react/jsx-runtime':jsxURL,'next/link':linkURL,'@/lib/resident-operations-example.json':residentDataURL});
+for (const name of ['room-pricing-field-guide','room-design-guides','utilities-field-guide','maintenance-field-guide','conversion-budget-field-guide','resident-operations-field-guide','property-fit-field-guide']) {
+  pageImports['../_components/'+name]=moduleURL('app/insights/_components/'+name+'.tsx',{'react/jsx-runtime':jsxURL,'next/link':linkURL,'@/lib/resident-operations-example.json':residentDataURL,'@/lib/property-fit-example.json':propertyDataURL});
 }
 const route=await import(moduleURL('app/insights/[slug]/page.tsx',pageImports));
 assert.deepEqual(route.generateStaticParams(),insights.map(({slug})=>({slug})));
@@ -146,4 +150,30 @@ const expectedCSV=[header,...issues.map(issue=>['true',issue.id,issue.topic,issu
 assert.equal(fs.readFileSync(path.join(root,'public/assets/fictional-resident-operations-handoff.csv'),'utf8').replaceAll('\r\n','\n'),expectedCSV);
 for(const value of ['nine incoming reports','six underlying issues','66.7%','18.3 minutes','33.3%','50%','20 minutes late','three hours','fictional'])assert.ok(residentContent.includes(value),'Resident example contains checked explanation: '+value);
 assert.ok(!fs.readFileSync(path.join(root,'app/insights/_components/resident-operations-field-guide.tsx'),'utf8').includes('use client'));
-console.log(JSON.stringify({insightConsolidation:'passed',canonicalGuides:47,permanentRedirects:53,sitemapOwners:79,relatedGuideSetsChecked:47,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:47,residentIssueArithmetic:'passed',residentCsvRowsChecked:6,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
+// The property-fit example checks arithmetic without inferring any approval.
+const PropertyGuide=(await import(pageImports['../_components/property-fit-field-guide'])).default;
+const propertyContent=text(PropertyGuide());
+assert.equal(propertyExample.fictional,true);assert.equal(propertyExample.spaces.length,6);
+assert.deepEqual(propertyExample.spaces.map(space=>space.id),['A','B','C','D','E','F']);
+assert.equal(propertyExample.operatingUseApproval,'Not established for any candidate space');
+assert.equal(propertyExample.spaces.filter(space=>space.status.endsWith('matched')).length,2);
+assert.ok(propertyExample.spaces.every(space=>space.owner&&space.nextAction));
+const area=propertyExample.areaIllustration;
+assert.equal(area.widthFeet*area.lengthFeet,132);
+const footprints=area.furniture.map(item=>item.widthFeet*item.lengthFeet);
+assert.deepEqual(footprints,[19.5,6,8]);assert.equal(footprints.reduce((a,b)=>a+b,0),33.5);
+assert.equal(area.widthFeet*area.lengthFeet-footprints.reduce((a,b)=>a+b,0),98.5);
+function elements(node,type){
+ if(node==null||typeof node!=='object')return [];
+ if(Array.isArray(node))return node.flatMap(child=>elements(child,type));
+ return [...(node.type===type?[node]:[]),...elements(node.props?.children,type)];
+}
+const propertyTables=elements(PropertyGuide(),'table');assert.equal(propertyTables.length,2);
+const areaRows=elements(elements(propertyTables[1],'tbody')[0],'tr');
+const actualAreaCells=areaRows.map(row=>text(elements(row,'td').at(-1)));
+assert.deepEqual(actualAreaCells,[132,...footprints,33.5,98.5].map(value=>value+' sq ft'));
+const propertyHeader=['fictional','candidate_id','label','available_record','status','accountable_role','next_action'];
+const propertyCSV=[propertyHeader,...propertyExample.spaces.map(space=>['true',space.id,space.label,space.record,space.status,space.owner,space.nextAction])].map(row=>row.map(csvCell).join(',')).join('\n')+'\n';
+assert.equal(fs.readFileSync(path.join(root,'public/assets/fictional-property-fit-review.csv'),'utf8').replaceAll('\r\n','\n'),propertyCSV);
+for(const value of ['six candidate spaces','not six rentable rooms','132 square feet','33.5 sq ft','98.5-square-foot remainder','not a property-readiness percentage'])assert.ok(propertyContent.includes(value),'Property-fit explanation contains checked boundary: '+value);
+console.log(JSON.stringify({insightConsolidation:'passed',canonicalGuides:38,permanentRedirects:62,sitemapOwners:70,relatedGuideSetsChecked:38,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:38,residentIssueArithmetic:'passed',residentCsvRowsChecked:6,propertyAreaArithmetic:'passed',propertyCsvRowsChecked:6,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));

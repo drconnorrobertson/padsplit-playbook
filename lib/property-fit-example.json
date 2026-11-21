@@ -1,0 +1,22 @@
+{
+  "fictional": true,
+  "proposalVersion": "Invented sketch revision 2",
+  "operatingUseApproval": "Not established for any candidate space",
+  "spaces": [
+    { "id": "A", "label": "Front candidate space", "record": "Dated sketch and measurement note agree on a 12 ft by 11 ft rectangle", "status": "Measurement matched", "owner": "Plan reviewer", "nextAction": "Locate openings and test the furnished layout; confirm applicable use requirements" },
+    { "id": "B", "label": "Side candidate space", "record": "The proposed furniture position overlaps the drawn door swing", "status": "Layout conflict", "owner": "Layout designer", "nextAction": "Revise the arrangement and repeat the door and circulation test" },
+    { "id": "C", "label": "Enclosed candidate space", "record": "A marketing label describes an enclosure; the supporting permit record was not supplied", "status": "Record missing", "owner": "Diligence lead", "nextAction": "Obtain the relevant permit and plan history and reconcile the current enclosure" },
+    { "id": "D", "label": "Rear candidate space", "record": "The proposed route passes through another candidate space", "status": "Circulation unresolved", "owner": "Qualified plan reviewer", "nextAction": "Document the actual route and obtain the appropriate project-specific review" },
+    { "id": "E", "label": "Upper candidate space", "record": "The proposal changes the intended use; no supporting mechanical-capacity review is in the file", "status": "System review pending", "owner": "Mechanical professional", "nextAction": "Review the proposed load and existing system information before relying on the use" },
+    { "id": "F", "label": "Existing common space", "record": "The current sketch and dated site note agree that it remains a common area", "status": "Existing use matched", "owner": "Project lead", "nextAction": "Keep the shared function in the plan; do not silently count it as a rentable room" }
+  ],
+  "areaIllustration": {
+    "widthFeet": 12,
+    "lengthFeet": 11,
+    "furniture": [
+      { "label": "Bed footprint", "widthFeet": 3, "lengthFeet": 6.5 },
+      { "label": "Wardrobe footprint", "widthFeet": 2, "lengthFeet": 3 },
+      { "label": "Desk footprint", "widthFeet": 2, "lengthFeet": 4 }
+    ]
+  }
+}

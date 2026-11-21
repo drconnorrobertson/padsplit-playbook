@@ -1,0 +1,7 @@
+fictional,candidate_id,label,available_record,status,accountable_role,next_action
+true,A,Front candidate space,Dated sketch and measurement note agree on a 12 ft by 11 ft rectangle,Measurement matched,Plan reviewer,Locate openings and test the furnished layout; confirm applicable use requirements
+true,B,Side candidate space,The proposed furniture position overlaps the drawn door swing,Layout conflict,Layout designer,Revise the arrangement and repeat the door and circulation test
+true,C,Enclosed candidate space,A marketing label describes an enclosure; the supporting permit record was not supplied,Record missing,Diligence lead,Obtain the relevant permit and plan history and reconcile the current enclosure
+true,D,Rear candidate space,The proposed route passes through another candidate space,Circulation unresolved,Qualified plan reviewer,Document the actual route and obtain the appropriate project-specific review
+true,E,Upper candidate space,The proposal changes the intended use; no supporting mechanical-capacity review is in the file,System review pending,Mechanical professional,Review the proposed load and existing system information before relying on the use
+true,F,Existing common space,The current sketch and dated site note agree that it remains a common area,Existing use matched,Project lead,Keep the shared function in the plan; do not silently count it as a rentable room
