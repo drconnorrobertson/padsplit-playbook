@@ -30,7 +30,6 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
   const schema = { "@context": "https://schema.org", "@graph": [
     { "@type": "Article", headline: `${item.label}: ${item.lens}`, datePublished: "2026-09-23", dateModified: "2026-09-23", mainEntityOfPage: `${base}/insights/${item.slug}`, author: { "@type": "Person", name: "Dr. Connor Robertson", url: "https://www.drconnorrobertson.com" }, publisher: { "@type": "Organization", name: "PadSplit Playbook", url: base }, about: item.label },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: base }, { "@type": "ListItem", position: 2, name: "Insights", item: `${base}/insights` }, { "@type": "ListItem", position: 3, name: `${item.label}: ${item.lens}`, item: `${base}/insights/${item.slug}` }] },
-    { "@type": "FAQPage", mainEntity: questions.slice(0, 3).map((question) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: "Use current source records, identify the decision owner, document the downside case, and consult a qualified local professional where the answer is fact-specific." } })) },
   ] };
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replaceAll("<", "\\u003c") }} />
