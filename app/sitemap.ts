@@ -21,6 +21,7 @@ export default function sitemap():MetadataRoute.Sitemap {
   const routes = ["", "/padsplit-guide", "/underwriting", "/operations", "/guides/shared-kitchen-setup", "/guides/maintenance-request-brief", "/insights", "/about", ...insightRoutes, ...legacyRoutes];
   return routes.map((route) => ({
     url: `${base}${route}`,
+    ...(route === "/insights/room-pricing-field-guide" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/guides/shared-kitchen-setup" ? { lastModified: "2026-10-25" } : {}),
     ...(route === "/guides/maintenance-request-brief" ? { lastModified: "2026-10-26" } : {}),
     changeFrequency: route === "" || route === "/blog" ? "weekly" : "monthly",
