@@ -25,7 +25,7 @@ export default function sitemap():MetadataRoute.Sitemap {
     // earlier today; the remaining templates received provenance/navigation fixes.
     ...(insightRoutes.includes(route) || route === "/insights" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/blog/room-by-room-rental-math" ? { lastModified: "2026-11-21" } : {}),
-    ...(["/blog", "/blog/padsplit-tax-strategy-depreciation"].includes(route) ? { lastModified: "2026-11-22" } : {}),
+    ...(["/blog", "/blog/padsplit-tax-strategy-depreciation", "/blog/padsplit-vs-traditional-rental"].includes(route) ? { lastModified: "2026-11-22" } : {}),
     ...(route === "/blog/padsplit-property-insurance" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/blog/zoning-occupancy-laws-coliving-rentals" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/guides/shared-kitchen-setup" ? { lastModified: "2026-11-21" } : {}),
