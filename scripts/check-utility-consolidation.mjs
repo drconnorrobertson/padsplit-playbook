@@ -46,8 +46,8 @@ const sitemap = (await import(moduleURL('app/sitemap.ts',{'@/lib/insights':insig
 const clusters=[{slug:market.marketCanonicalSlug,redirects:market.marketRedirectSlugs,prefix:'market-legality-'},{slug:fallback.fallbackCanonicalSlug,redirects:fallback.fallbackRedirectSlugs,prefix:'fallback-use-'},{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8},{slug:budget.budgetCanonicalSlug,redirects:budget.budgetRedirectSlugs,prefix:'conversion-budget-'},{slug:resident.residentCanonicalSlug,redirects:resident.residentRedirectSlugs,prefix:'resident-operations-'},{slug:propertyFit.propertyFitCanonicalSlug,redirects:propertyFit.propertyFitRedirectSlugs,prefix:'property-fit-'}];
 const rules = await config.redirects();
 assert.equal(insights.length,20);
-assert.equal(rules.length,80);
-assert.equal(new Set(rules.map(rule=>rule.source)).size,80);
+assert.equal(rules.length,81);
+assert.equal(new Set(rules.map(rule=>rule.source)).size,81);
 for (const cluster of clusters) {
   const destination='/insights/'+cluster.slug;
   assert.equal(insights.filter(item=>item.slug.startsWith(cluster.prefix)).length,cluster.retainedCount||1);
@@ -215,4 +215,6 @@ const marketCSV=[['fictional','record_id','record','stated_scope','unresolved_li
 assert.equal(fs.readFileSync(path.join(root,'public/assets/fictional-market-permission-register.csv'),'utf8'),marketCSV);
 for(const boundary of ['entirely fictional','not a readiness percentage','does not replace','six-room proposal','not an application'])assert.ok(marketContent.includes(boundary));
 
-console.log(JSON.stringify({marketPacketRows:3,permissionRegister:"passed",fallbackMonthlyCases:3,fallbackTransitionCash:'passed',insightConsolidation:'passed',canonicalGuides:20,permanentRedirects:80,sitemapOwners:52,relatedGuideSetsChecked:20,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:20,residentIssueArithmetic:'passed',residentCsvRowsChecked:6,propertyAreaArithmetic:'passed',propertyCsvRowsChecked:6,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
+console.log(JSON.stringify({marketPacketRows:3,permissionRegister:"passed",fallbackMonthlyCases:3,fallbackTransitionCash:'passed',insightConsolidation:'passed',canonicalGuides:20,retirementRedirects:80,orderedSlashNormalizationRules:1,sitemapOwners:52,relatedGuideSetsChecked:20,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:20,residentIssueArithmetic:'passed',residentCsvRowsChecked:6,propertyAreaArithmetic:'passed',propertyCsvRowsChecked:6,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
+
+export {config,sitemap,rules};
