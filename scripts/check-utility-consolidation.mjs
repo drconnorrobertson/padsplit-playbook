@@ -13,6 +13,10 @@ function moduleURL(file, replacements={}) {
   for (const [specifier, replacement] of Object.entries(replacements)) output=output.replaceAll(JSON.stringify(specifier),JSON.stringify(replacement));
   return 'data:text/javascript;base64,'+Buffer.from(output).toString('base64');
 }
+const safetyURL=moduleURL('lib/safety-canonical.ts');
+const safety=await import(safetyURL);
+const safetyExample=JSON.parse(fs.readFileSync(path.join(root,'lib/safety-review-example.json'),'utf8'));
+const safetyDataURL='data:text/javascript;base64,'+Buffer.from('export default '+JSON.stringify(safetyExample)).toString('base64');
 const marketURL=moduleURL('lib/market-canonical.ts');
 const market=await import(marketURL);
 const marketExample=JSON.parse(fs.readFileSync(path.join(root,'lib/market-legality-example.json'),'utf8'));
@@ -39,15 +43,15 @@ const propertyFitURL=moduleURL('lib/property-fit-canonical.ts');
 const propertyFit=await import(propertyFitURL);
 const propertyExample=JSON.parse(fs.readFileSync(path.join(root,'lib/property-fit-example.json'),'utf8'));
 const propertyDataURL='data:text/javascript;base64,'+Buffer.from('export default '+JSON.stringify(propertyExample)).toString('base64');
-const insightsURL = moduleURL('lib/insights.ts',{'./market-canonical':marketURL,'./fallback-canonical':fallbackURL,'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL,'./budget-canonical':budgetURL,'./resident-canonical':residentURL,'./property-fit-canonical':propertyFitURL});
+const insightsURL = moduleURL('lib/insights.ts',{'./safety-canonical':safetyURL,'./market-canonical':marketURL,'./fallback-canonical':fallbackURL,'./utility-canonical':canonicalURL,'./maintenance-canonical':maintenanceURL,'./pricing-canonical':pricingURL,'./design-canonical':designURL,'./budget-canonical':budgetURL,'./resident-canonical':residentURL,'./property-fit-canonical':propertyFitURL});
 const {insights,getRelatedInsights} = await import(insightsURL);
-const config = (await import(moduleURL('next.config.ts',{'./lib/market-canonical':marketURL,'./lib/fallback-canonical':fallbackURL,'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL,'./lib/budget-canonical':budgetURL,'./lib/resident-canonical':residentURL,'./lib/property-fit-canonical':propertyFitURL}))).default;
+const config = (await import(moduleURL('next.config.ts',{'./lib/safety-canonical':safetyURL,'./lib/market-canonical':marketURL,'./lib/fallback-canonical':fallbackURL,'./lib/utility-canonical':canonicalURL,'./lib/maintenance-canonical':maintenanceURL,'./lib/pricing-canonical':pricingURL,'./lib/design-canonical':designURL,'./lib/budget-canonical':budgetURL,'./lib/resident-canonical':residentURL,'./lib/property-fit-canonical':propertyFitURL}))).default;
 const sitemap = (await import(moduleURL('app/sitemap.ts',{'@/lib/insights':insightsURL}))).default();
-const clusters=[{slug:market.marketCanonicalSlug,redirects:market.marketRedirectSlugs,prefix:'market-legality-'},{slug:fallback.fallbackCanonicalSlug,redirects:fallback.fallbackRedirectSlugs,prefix:'fallback-use-'},{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8},{slug:budget.budgetCanonicalSlug,redirects:budget.budgetRedirectSlugs,prefix:'conversion-budget-'},{slug:resident.residentCanonicalSlug,redirects:resident.residentRedirectSlugs,prefix:'resident-operations-'},{slug:propertyFit.propertyFitCanonicalSlug,redirects:propertyFit.propertyFitRedirectSlugs,prefix:'property-fit-'}];
+const clusters=[{slug:safety.safetyCanonicalSlug,redirects:safety.safetyRedirectSlugs,prefix:'safety-compliance-'},{slug:market.marketCanonicalSlug,redirects:market.marketRedirectSlugs,prefix:'market-legality-'},{slug:fallback.fallbackCanonicalSlug,redirects:fallback.fallbackRedirectSlugs,prefix:'fallback-use-'},{slug:canonical.utilityCanonicalSlug,redirects:canonical.utilityRedirectSlugs,prefix:'utilities-'},{slug:maintenance.maintenanceCanonicalSlug,redirects:maintenance.maintenanceRedirectSlugs,prefix:'maintenance-'},{slug:pricing.pricingCanonicalSlug,redirects:pricing.pricingRedirectSlugs,prefix:'room-pricing-'},{slug:design.designCanonicalSlug,redirects:design.designRedirectSlugs,prefix:'room-design-',retainedCount:2,expectedRedirects:8},{slug:budget.budgetCanonicalSlug,redirects:budget.budgetRedirectSlugs,prefix:'conversion-budget-'},{slug:resident.residentCanonicalSlug,redirects:resident.residentRedirectSlugs,prefix:'resident-operations-'},{slug:propertyFit.propertyFitCanonicalSlug,redirects:propertyFit.propertyFitRedirectSlugs,prefix:'property-fit-'}];
 const rules = await config.redirects();
-assert.equal(insights.length,20);
-assert.equal(rules.length,81);
-assert.equal(new Set(rules.map(rule=>rule.source)).size,81);
+assert.equal(insights.length,11);
+assert.equal(rules.length,90);
+assert.equal(new Set(rules.map(rule=>rule.source)).size,90);
 for (const cluster of clusters) {
   const destination='/insights/'+cluster.slug;
   assert.equal(insights.filter(item=>item.slug.startsWith(cluster.prefix)).length,cluster.retainedCount||1);
@@ -62,8 +66,8 @@ for (const cluster of clusters) {
   }
   assert.equal(sitemap.find(item=>new URL(item.url).pathname===destination).lastModified,'2026-11-21');
 }
-assert.equal(sitemap.length,52);
-assert.equal(new Set(sitemap.map(item=>item.url)).size,52);
+assert.equal(sitemap.length,43);
+assert.equal(new Set(sitemap.map(item=>item.url)).size,43);
 assert.ok(insights.some(item=>item.slug==='room-design-mistakes'),'Keep the distinct worked-mistakes guide');
 for (const item of insights) assert.equal(sitemap.find(entry=>new URL(entry.url).pathname==='/insights/'+item.slug).lastModified,'2026-11-21');
 for (const item of insights) {
@@ -100,8 +104,8 @@ const pageImports={
   'next/navigation':pathToFileURL(require.resolve('next/navigation')).href,
   '@/lib/insights':insightsURL,
 };
-for (const name of ['room-pricing-field-guide','room-design-guides','utilities-field-guide','maintenance-field-guide','conversion-budget-field-guide','resident-operations-field-guide','property-fit-field-guide','fallback-use-checklist','market-legality-field-guide']) {
-  pageImports['../_components/'+name]=moduleURL('app/insights/_components/'+name+'.tsx',{'react/jsx-runtime':jsxURL,'next/link':linkURL,'@/lib/resident-operations-example.json':residentDataURL,'@/lib/property-fit-example.json':propertyDataURL,'@/lib/fallback-example.json':fallbackDataURL,'@/lib/market-legality-example.json':marketDataURL});
+for (const name of ['room-pricing-field-guide','room-design-guides','utilities-field-guide','maintenance-field-guide','conversion-budget-field-guide','resident-operations-field-guide','property-fit-field-guide','fallback-use-checklist','market-legality-field-guide','safety-compliance-checklist']) {
+  pageImports['../_components/'+name]=moduleURL('app/insights/_components/'+name+'.tsx',{'react/jsx-runtime':jsxURL,'next/link':linkURL,'@/lib/resident-operations-example.json':residentDataURL,'@/lib/property-fit-example.json':propertyDataURL,'@/lib/fallback-example.json':fallbackDataURL,'@/lib/market-legality-example.json':marketDataURL,'@/lib/safety-review-example.json':safetyDataURL});
 }
 const route=await import(moduleURL('app/insights/[slug]/page.tsx',pageImports));
 assert.deepEqual(route.generateStaticParams(),insights.map(({slug})=>({slug})));
@@ -215,6 +219,19 @@ const marketCSV=[['fictional','record_id','record','stated_scope','unresolved_li
 assert.equal(fs.readFileSync(path.join(root,'public/assets/fictional-market-permission-register.csv'),'utf8'),marketCSV);
 for(const boundary of ['entirely fictional','not a readiness percentage','does not replace','six-room proposal','not an application'])assert.ok(marketContent.includes(boundary));
 
-console.log(JSON.stringify({marketPacketRows:3,permissionRegister:"passed",fallbackMonthlyCases:3,fallbackTransitionCash:'passed',insightConsolidation:'passed',canonicalGuides:20,retirementRedirects:80,orderedSlashNormalizationRules:1,sitemapOwners:52,relatedGuideSetsChecked:20,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:20,residentIssueArithmetic:'passed',residentCsvRowsChecked:6,propertyAreaArithmetic:'passed',propertyCsvRowsChecked:6,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
+
+const SafetyGuide=(await import(pageImports['../_components/safety-compliance-checklist'])).default;
+const safetyContent=text(SafetyGuide());
+assert.equal(safetyExample.fictional,true);assert.equal(safetyExample.propertySafetyEstablished,false);
+assert.deepEqual(safetyExample.records.map(row=>row.id),['S1','S2','S3']);
+assert.deepEqual(safetyExample.records.map(row=>row.state),['Evidence outstanding','Scope conflict','Completion claimed']);
+const safetyTable=elements(SafetyGuide(),'table');assert.equal(safetyTable.length,1);
+const safetyRows=elements(elements(safetyTable[0],'tbody')[0],'tr');
+assert.deepEqual(safetyRows.map(row=>elements(row,'td').map(text)),safetyExample.records.map(row=>[row.available,row.gap]));
+const safetyCSV=[['fictional','issue_id','record','evidence_supplied','open_question','next_action','accountable_role','state'],...safetyExample.records.map(row=>['true',row.id,row.record,row.available,row.gap,row.nextAction,row.owner,row.state])].map(row=>row.map(csvCell).join(',')).join('\n')+'\n';
+assert.equal(fs.readFileSync(path.join(root,'public/assets/fictional-safety-follow-up-register.csv'),'utf8'),safetyCSV);
+for(const boundary of ['entire packet is fictional','None is a closed finding','does not replace emergency instructions','not sensor accuracy','stay out until emergency responders permit reentry'])assert.ok(safetyContent.includes(boundary));
+
+console.log(JSON.stringify({safetyPacketRows:3,safetyRegister:"passed",marketPacketRows:3,permissionRegister:"passed",fallbackMonthlyCases:3,fallbackTransitionCash:'passed',insightConsolidation:'passed',canonicalGuides:11,retirementRedirects:89,orderedSlashNormalizationRules:1,sitemapOwners:43,relatedGuideSetsChecked:11,fictionalBillArithmetic:'passed',articleMetadataSetsChecked:11,residentIssueArithmetic:'passed',residentCsvRowsChecked:6,propertyAreaArithmetic:'passed',propertyCsvRowsChecked:6,scope:'Route/config/sitemap and server component checks; native Next build and live redirects still required.'}));
 
 export {config,sitemap,rules};
