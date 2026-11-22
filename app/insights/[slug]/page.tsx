@@ -1,3 +1,4 @@
+import SafetyComplianceChecklist, { safetyTitle, safetyDescription } from "../_components/safety-compliance-checklist";
 import MarketLegalityFieldGuide, { marketTitle, marketDescription } from "../_components/market-legality-field-guide";
 import FallbackUseChecklist, { fallbackTitle, fallbackDescription } from "../_components/fallback-use-checklist";
 import PropertyFitFieldGuide, { propertyFitTitle, propertyFitDescription } from "../_components/property-fit-field-guide";
@@ -23,6 +24,7 @@ export function generateStaticParams() { return insights.map(({ slug }) => ({ sl
 
 const specializedMetadata: Partial<Record<string, { title: string; description: string }>> = {
   ...roomDesignPages,
+  "safety-compliance-checklist": { title: safetyTitle, description: safetyDescription },
   "market-legality-field-guide": { title: marketTitle, description: marketDescription },
   "fallback-use-checklist": { title: fallbackTitle, description: fallbackDescription },
   "property-fit-checklist": { title: propertyFitTitle, description: propertyFitDescription },
@@ -65,6 +67,10 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
     { "@type": "Article", headline: `${item.label}: ${item.lens}`, datePublished: "2026-09-23", dateModified: "2026-11-21", mainEntityOfPage: `${base}/insights/${item.slug}`, author: { "@type": "Organization", name: "PadSplit Playbook", url: base }, publisher: { "@type": "Organization", name: "PadSplit Playbook", url: base }, about: item.label },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: base }, { "@type": "ListItem", position: 2, name: "Insights", item: `${base}/insights` }, { "@type": "ListItem", position: 3, name: `${item.label}: ${item.lens}`, item: `${base}/insights/${item.slug}` }] },
   ] };
+  if (slug === "safety-compliance-checklist") {
+    schema["@graph"][0].headline = safetyTitle;
+    return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replaceAll("<", "\\u003c") }} /><SafetyComplianceChecklist /></>;
+  }
   if (slug === "market-legality-field-guide") {
     schema["@graph"][0].headline = marketTitle;
     return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replaceAll("<", "\\u003c") }} /><MarketLegalityFieldGuide /></>;

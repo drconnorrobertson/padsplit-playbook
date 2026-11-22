@@ -11,7 +11,7 @@ const {getPathMatch}=require('next/dist/shared/lib/router/utils/path-match');
 const {compile}=require('next/dist/compiled/path-to-regexp');
 assert.equal(config.skipTrailingSlashRedirect,true);
 const loaded=await loadCustomRoutes({...defaultConfig,...config});
-assert.equal(loaded.redirects.length,81);
+assert.equal(loaded.redirects.length,90);
 assert.ok(loaded.redirects.every(rule=>!rule.internal),'No earlier automatic normalization rule');
 assert.deepEqual(rules.at(-1),{source:'/:path+/',destination:'/:path+',permanent:true});
 const compiled=loaded.redirects.map(rule=>({rule,built:buildCustomRoute('redirect',rule)}));
@@ -36,4 +36,4 @@ const assets=files(path.join(root,'public')).filter(p=>!p.endsWith('/index.html'
 for(const file of assets){const route='/'+path.relative(path.join(root,'public'),file).split(path.sep).join('/');assert.equal(destination(route),null,'Asset URL must not redirect');}
 assert.equal(destination('/unpublished-route'),null);
 assert.equal(destination('/unpublished-route/').target,'/unpublished-route','Preserve prior slash policy without redirecting unknown paths to a published owner');
-console.log(JSON.stringify({compiledNextRedirects:compiled.length,retiredFormsDirectToFinal:160,canonicalPagesWithoutRedirect:sitemap.length,publishedSlashForms:sitemap.length-1,assetsWithoutRedirect:assets.length,scope:'Uses installed Next16.3.6 route loading, regex compilation and matching; platform responses still require live verification.'}));
+console.log(JSON.stringify({compiledNextRedirects:compiled.length,retiredFormsDirectToFinal:178,canonicalPagesWithoutRedirect:sitemap.length,publishedSlashForms:sitemap.length-1,assetsWithoutRedirect:assets.length,scope:'Uses installed Next16.3.6 route loading, regex compilation and matching; platform responses still require live verification.'}));

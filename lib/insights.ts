@@ -1,3 +1,4 @@
+import { safetyRedirectSlugs } from "./safety-canonical";
 import { marketRedirectSlugs } from "./market-canonical";
 import { fallbackRedirectSlugs } from "./fallback-canonical";
 import { propertyFitRedirectSlugs } from "./property-fit-canonical";
@@ -41,7 +42,7 @@ export const insights = topics.flatMap((topic, topicIndex) => lenses.map((lens, 
   goal: lens.goal,
   slug: `${topic.slug}-${lens.slug}`,
   number: topicIndex * lenses.length + lensIndex + 1,
-}))).filter((item) => !marketRedirectSlugs.includes(item.slug) && !fallbackRedirectSlugs.includes(item.slug) && !utilityRedirectSlugs.includes(item.slug) && !maintenanceRedirectSlugs.includes(item.slug) && !pricingRedirectSlugs.includes(item.slug) && !designRedirectSlugs.includes(item.slug) && !budgetRedirectSlugs.includes(item.slug) && !residentRedirectSlugs.includes(item.slug) && !propertyFitRedirectSlugs.includes(item.slug));
+}))).filter((item) => !safetyRedirectSlugs.includes(item.slug) && !marketRedirectSlugs.includes(item.slug) && !fallbackRedirectSlugs.includes(item.slug) && !utilityRedirectSlugs.includes(item.slug) && !maintenanceRedirectSlugs.includes(item.slug) && !pricingRedirectSlugs.includes(item.slug) && !designRedirectSlugs.includes(item.slug) && !budgetRedirectSlugs.includes(item.slug) && !residentRedirectSlugs.includes(item.slug) && !propertyFitRedirectSlugs.includes(item.slug));
 
 export type Insight = (typeof insights)[number];
 export const getInsight = (slug: string) => insights.find((item) => item.slug === slug);

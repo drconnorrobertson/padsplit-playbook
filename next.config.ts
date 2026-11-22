@@ -1,3 +1,4 @@
+import { safetyCanonicalSlug, safetyRedirectSlugs } from "./lib/safety-canonical";
 import { marketCanonicalSlug, marketRedirectSlugs } from "./lib/market-canonical";
 import { fallbackCanonicalSlug, fallbackRedirectSlugs } from "./lib/fallback-canonical";
 import { propertyFitCanonicalSlug, propertyFitRedirectSlugs } from "./lib/property-fit-canonical";
@@ -14,7 +15,11 @@ const nextConfig: NextConfig = {
   // Retirement destinations must win before trailing-slash normalization.
   skipTrailingSlashRedirect: true,
   async redirects() {
-    return [...marketRedirectSlugs.map((slug) => ({
+    return [...safetyRedirectSlugs.map((slug) => ({
+      source: `/insights/${slug}`,
+      destination: `/insights/${safetyCanonicalSlug}`,
+      permanent: true,
+    })), ...marketRedirectSlugs.map((slug) => ({
       source: `/insights/${slug}`,
       destination: `/insights/${marketCanonicalSlug}`,
       permanent: true,

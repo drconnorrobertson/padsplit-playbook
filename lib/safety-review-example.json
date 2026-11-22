@@ -1,0 +1,9 @@
+{
+  "fictional": true,
+  "propertySafetyEstablished": false,
+  "records": [
+    {"id":"S1","record":"Alarm inventory without dated results","available":"Device locations are listed, but the supplied file has no dated test results","gap":"Current testing and replacement evidence is outstanding","nextAction":"Have the responsible qualified person reconcile device identities, manufacturer instructions and dated results","owner":"Property coordinator","state":"Evidence outstanding"},
+    {"id":"S2","record":"Escape-plan version mismatch","available":"The posted plan and the drawing retained in the file have different revision identifiers","gap":"Neither version has been reconciled to the current arrangement","nextAction":"Arrange a qualified review of the current layout and reconcile the plan, communication and outstanding conditions","owner":"Local safety reviewer","state":"Scope conflict"},
+    {"id":"S3","record":"Vendor completion invoice","available":"The invoice says alarm work was completed but does not identify the device or verification result","gap":"The completion claim has not been matched to the specific issue and outcome","nextAction":"Obtain the work scope, location and appropriate verification evidence before closing the record","owner":"Vendor liaison","state":"Completion claimed"}
+  ]
+}
