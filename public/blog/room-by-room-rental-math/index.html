@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Room-by-Room Rental: The Math Behind Shared Housing</title>
-<meta name="description" content="A working underwriting walkthrough of the room-by-room rental model — gross rent, operating costs, vacancy buffers, and the spread that produces shared housing's superior cash flow.">
+<title>Room-by-Room Rental Math: Compare Collected Cash and Full Costs</title>
+<meta name="description" content="Compare three fictional rental cash scenarios, trace booking and service fees, separate reserves from expenses, and download the reconciled comparison CSV.">
 <link rel="canonical" href="https://www.padsplitplaybookbook.com/blog/room-by-room-rental-math">
-<meta property="og:title" content="Room-by-Room Rental: The Math Behind Shared Housing">
+<meta property="og:title" content="Room-by-Room Rental Math: Compare Collected Cash and Full Costs">
 <meta property="og:type" content="article">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,9 +15,9 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Room-by-Room Rental: The Math Behind Shared Housing",
+  "headline": "Room-by-Room Rental Math: Compare Collected Cash and Full Costs",
   "datePublished": "2026-05-05",
-  "dateModified": "2026-05-05",
+  "dateModified": "2026-11-21",
   "author": {
     "@type": "Person",
     "name": "Dr. Connor Robertson",
@@ -34,6 +34,16 @@
   "mainEntityOfPage": "https://www.padsplitplaybookbook.com/blog/room-by-room-rental-math"
 }
 </script>
+<style>
+.prose { min-width: 0; }
+.cash-table-scroll { width: 100%; max-width: 100%; overflow-x: auto; margin: 1.5rem 0; }
+.cash-table-scroll:focus-visible { outline: 3px solid #1d4ed8; outline-offset: 3px; }
+.cash-table-scroll table { width: 100%; min-width: 680px; border-collapse: collapse; font-size: .95rem; }
+.cash-table-scroll caption { text-align: left; font-weight: 600; margin-bottom: .75rem; }
+.cash-table-scroll th, .cash-table-scroll td { padding: .75rem; border: 1px solid #d1d5db; text-align: right; }
+.cash-table-scroll th:first-child { text-align: left; }
+.cash-table-scroll thead { background: #f3f4f6; }
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -54,101 +64,57 @@
 
 <section class="page-hero">
   <div class="container">
-    <h1>Room-by-Room Rental: The Math Behind Shared Housing</h1>
-    <p>May 5, 2026 · 10 min read · By Dr. Connor Robertson</p>
+    <h1>Room-by-Room Rental Math: Compare Collected Cash and Full Costs</h1>
+    <p>Published May 5, 2026 · Revised November 21, 2026 · By Dr. Connor Robertson</p>
   </div>
 </section>
 
 <section>
   <div class="container">
     <div class="prose">
-      <p>The first thing to understand about the shared-housing model is that it changes the unit of inventory. A traditional rental sells a house. A PadSplit sells bedrooms. That single change is what produces the 1.5x–2x gross revenue differential that gets people's attention. The math is straightforward once you frame it correctly. Let's walk it.</p>
-
-      <h2>The traditional rental</h2>
-      <p>Take a four-bedroom, two-bathroom single-family home in a workforce neighborhood. Acquisition cost: $200,000. Rent in the local single-family rental market: $1,800/month. The traditional underwriting looks like:</p>
-
-      <ul>
-        <li>Gross monthly rent: $1,800</li>
-        <li>Vacancy (8%): $144</li>
-        <li>Effective gross income: $1,656</li>
-        <li>Property tax, insurance, repairs, capex reserves: ~$500</li>
-        <li>Property management (8%): $144</li>
-        <li>Net operating income: ~$1,012/month</li>
-      </ul>
-
-      <p>That's a reasonable buy-and-hold. Pencil-able, not exciting.</p>
-
-      <h2>The same property as a PadSplit</h2>
-      <p>Same house. Four bedrooms. Two bathrooms. After conversion, we'll assume one more bedroom is added out of an underused dining room, for a total of five rooms. Weekly rents in this market: $175–$215 depending on the room. Average weekly rent: $195.</p>
-
-      <p>Five rooms × $195/week × 4.33 weeks/month = <strong>$4,222/month gross</strong>.</p>
-
-      <p>Compared to $1,800/month traditional. That's the spread. Now we have to figure out what gets eaten.</p>
-
-      <h2>The operating cost differential</h2>
-      <p>Shared housing has real costs the traditional rental doesn't. Honest underwriting includes all of them.</p>
-
-      <ul>
-        <li><strong>Utilities</strong> (water, electric, gas): $350–$500/month. The operator pays utilities in a PadSplit; tenants pay them in a traditional rental.</li>
-        <li><strong>Internet</strong>: $80/month. Always required.</li>
-        <li><strong>Weekly cleaning of common areas</strong>: $300–$450/month.</li>
-        <li><strong>Furnishings amortization</strong>: $100/month over the useful life of furniture.</li>
-        <li><strong>Platform fee</strong>: 12% of gross rent under most arrangements.</li>
-        <li><strong>Higher vacancy buffer</strong>: 10–12% in stabilized operation, more during the first 90 days of lease-up.</li>
-        <li><strong>Faster turn cost</strong>: members turn faster than annual leases, and each turn costs cleaning and re-listing labor.</li>
-      </ul>
-
-      <h2>The stabilized model</h2>
-      <p>Let's run it.</p>
-      <ul>
-        <li>Gross monthly rent: $4,222</li>
-        <li>Vacancy buffer (12%): -$507</li>
-        <li>Effective gross income: $3,715</li>
-        <li>Platform fee (12%): -$446</li>
-        <li>Utilities: -$425</li>
-        <li>Internet: -$80</li>
-        <li>Cleaning: -$375</li>
-        <li>Furnishings amortization: -$100</li>
-        <li>Property tax, insurance, repairs, capex reserves: -$500</li>
-        <li>Local property management / community lead: -$300</li>
-        <li><strong>Net operating income: ~$1,489/month</strong></li>
-      </ul>
-
-      <p>Compare to the traditional rental's $1,012/month NOI. The shared housing model produces roughly 47% more net cash flow on the same property — even after the considerably higher operating expense load.</p>
-
-      <h2>Where it gets better</h2>
-      <p>That model is conservative. Real-world operators with strong community management often see:</p>
-      <ul>
-        <li>Vacancy closer to 5–8% rather than 12%</li>
-        <li>Slightly higher room rents in tight markets</li>
-        <li>Lower platform fees as portfolio size grows</li>
-      </ul>
-
-      <p>A well-run property at the same purchase price can clear $1,800–$2,200/month NOI — double the traditional rental on the same acquisition cost.</p>
-
-      <h2>Where it gets worse</h2>
-      <p>It's also possible to lose money. The most common ways:</p>
-      <ul>
-        <li>Bad property selection — a house that doesn't actually have five rentable rooms after conversion, or has only one bathroom for too many members</li>
-        <li>Poor community management — turnover and vacancy go up, occupancy drops below 80%</li>
-        <li>Under-budgeted operating expenses, especially utilities</li>
-        <li>A market where weekly room rents don't actually support the model</li>
-      </ul>
-
-      <p>The shared-housing model has a higher ceiling and a lower floor than traditional rentals. The discipline is in the underwriting and the operations.</p>
-
-      <h2>The takeaway</h2>
-      <p>The math works because the unit of inventory changes. Five paying members in one house, each paying weekly, produces more gross revenue than one paying tenant in the same house. The operating costs are higher, but not high enough to close the gap. The result is a model that, well-run, produces meaningfully better cash flow on the same acquisition.</p>
-
-      <p>The full underwriting framework — with stabilized numbers across multiple markets, sensitivity tables, and the margin of safety to apply — is in <a href="/">PadSplit Playbook</a>.</p>
+<article aria-label="Rental cash comparison guide">
+<h2>Compare the cash bridge, not a revenue multiple</h2>
+<p>Room-by-room renting changes both receipts and responsibilities. More potential rent does not establish a better investment when collections, turnover, operating costs, conversion cash and owner work also change. The three cases here are fictional teaching examples, not observed results, market rents, a platform quote or a property approval.</p>
+<p>First confirm permitted use, layout, occupancy limits, approvals and insurance. Five rooms are assumed permitted solely for the arithmetic. An unsupported extra bedroom should not enter an underwriting model because a spreadsheet needs its revenue.</p>
+<h2>State the period and collection basis</h2>
+<p>The traditional case assumes $1,800 potential monthly rent and 92% collection, giving $19,872 collected over twelve modeled months. Its fictional manager charges 8% of collected rent. Shared-housing cases assume five rooms at a $195 host base weekly rate for a 52-week planning period: $50,700 potential receipts. Collection is 88% in the base case and 70% in the downside. Those shares combine vacancy and uncollected amounts rather than deducting the same shortfall twice.</p>
+<p>The $195 host base rate is not a member’s total bill. No promotions, refunds, move-in receipts or other income are modeled. One-twelfth of the planning-period result is a monthly equivalent, not a forecast of any actual month’s billings or payout.</p>
+<h2>Trace the booking and service charges</h2>
+<p>PadSplit’s published host help pages describe a ten-day booking charge and an 8% continuing service charge. Its payout explanation applies that service charge after booking fees. Use the current agreement and settled-payment ledger: transfers, waivers, short stays and promotions can change the calculation. A flat 12% allowance does not describe this example’s fee mechanics.</p>
+<p>The base case assumes six new occupancies charged for ten paid days each at the same $195 weekly base rate. No waiver or within-portfolio transfer is assumed. Modeled booking charges are 6 × $195 ÷ 7 × 10, rounded in aggregate to $1,671.43. The service charge is 8% × ($44,616 − $1,671.43), rounded to $3,435.57. Cash after both charges is $39,509. This is an illustrative rounding convention, not a claim about the platform’s transaction-level rounding.</p>
+<p>Sources checked November 21, 2026: <a href="https://www.padsplit.com/help/article/what-is-padsplit-s-fee-model-for-hosts-17566811">PadSplit host fee model</a>, <a href="https://www.padsplit.com/help/article/how-does-padsplit-calculate-a-host-s-monthly-payout-17567161">monthly payout calculation</a> and <a href="https://www.padsplit.com/help/article/earnings-payout-faqs-17566786">earnings and payout FAQs</a>. These sources support fee mechanics, not this example’s rents or outcomes.</p>
+<h2>Separate outflows, reserve allocations and noncash expense</h2>
+<p>All cases include $3,600 tax and insurance and $2,400 repairs. Shared-housing cases add $5,100 utilities, $960 internet, $4,500 cleaning and $3,600 local management. Local management is separate from the platform service charge. These are assigned teaching values, not contractor quotes or market averages.</p>
+<p>A separate $1,200 replacement-reserve allocation follows those operating outflows. Setting cash aside is different from paying a repair or recording noncash furniture amortization. Reconcile a later replacement funded from that reserve rather than counting the transfer and purchase as unrelated expenses. The result is labeled cash remaining after listed outflows and reserve allocation, before debt and tax—not standardized NOI, spendable profit or a tax deduction.</p>
+<p>The traditional case leaves $11,082.24, or $923.52 per modeled month. The shared base leaves $18,149, or $1,512.42 per modeled month. Neither result includes financing or the extra conversion budget.</p>
+<h2 id="cash-comparison">Three fictional cash scenarios</h2><p id="cash-scroll-help">All dollar amounts are USD. On a narrow screen, scroll the comparison sideways; keyboard users can focus the table region and use the arrow keys.</p>
+<div class="cash-table-scroll" role="region" aria-label="Fictional rental cash comparison" aria-describedby="cash-scroll-help" tabindex="0"><table><caption>Annual planning-period cash bridge; not investment results</caption><thead><tr><th scope="col">Line item</th><th scope="col">Traditional</th><th scope="col">Shared base</th><th scope="col">Shared combined downside</th></tr></thead><tbody>
+<tr><th scope="row">Potential host base rent</th><td>$21,600.00</td><td>$50,700.00</td><td>$50,700.00</td></tr>
+<tr><th scope="row">Collected host base rent</th><td>$19,872.00</td><td>$44,616.00</td><td>$35,490.00</td></tr>
+<tr><th scope="row">Full ten-day charged starts</th><td>0</td><td>6</td><td>12</td></tr>
+<tr><th scope="row">Booking charges</th><td>$0.00</td><td>$1,671.43</td><td>$3,342.86</td></tr>
+<tr><th scope="row">Management / service charge</th><td>$1,589.76</td><td>$3,435.57</td><td>$2,571.77</td></tr>
+<tr><th scope="row">Other operating outflows</th><td>$6,000.00</td><td>$20,160.00</td><td>$20,160.00</td></tr>
+<tr><th scope="row">Cash before reserve, debt and tax</th><td>$12,282.24</td><td>$19,349.00</td><td>$9,415.37</td></tr>
+<tr><th scope="row">Replacement-reserve allocation</th><td>$1,200.00</td><td>$1,200.00</td><td>$1,200.00</td></tr>
+<tr><th scope="row">Cash after reserve, before debt and tax</th><td>$11,082.24</td><td>$18,149.00</td><td>$8,215.37</td></tr>
+<tr><th scope="row">Monthly equivalent of last row</th><td>$923.52</td><td>$1,512.42</td><td>$684.61</td></tr>
+</tbody></table></div><p><a href="/assets/fictional-rental-cash-comparison.csv" download>Download all three fictional scenarios as CSV</a>. The CSV includes collection shares and each operating-cost line so the cash bridge can be checked.</p>
+<h2>Let the downside change the conclusion</h2>
+<p>The combined downside keeps five rooms and the $195 weekly base rate but lowers collection to 70% and doubles full-charge new occupancies to twelve. Booking charges become $3,342.86 and the continuing service charge $2,571.77. Cash after those charges is $29,575.37. Other outflows and the reserve allocation stay fixed.</p>
+<p>The downside leaves $8,215.37, or $684.61 per modeled month, below the traditional case. Both collection and turnover changed, so this is a combined stress test, not an isolated estimate of either variable’s effect. It shows why a categorical claim that operating costs cannot close the gross-rent gap is too broad.</p>
+<h2>Keep conversion capital outside the recurring comparison</h2>
+<p>Assume an additional $25,000 conversion and launch budget for shared housing only. Keep that one-time cash requirement visible and separate from recurring operations. This illustration does not calculate cash-on-cash return: financing, transaction costs, setup spending and retained liquidity need a consistent capital bridge first.</p>
+<p>Debt service, income taxes, sale costs and the owner’s time are excluded. Replace each teaching input with a dated source, retain the collection and fee definitions, and coordinate the model with actual property permissions and operating constraints. A favorable base case is a scenario to investigate, not permission to proceed or a promised outcome.</p>
+<h2>Check the property before refining the spreadsheet</h2><p>Use the <a href="/insights/market-legality-field-guide">permission-record review</a>, <a href="/insights/conversion-budget-field-guide">conversion-budget guide</a> and <a href="/underwriting">underwriting overview</a> to organize the next questions. The example on this page is an original educational comparison, not an excerpt from the book.</p></article>
     </div>
   </div>
 </section>
 
 <section class="cta-section">
   <div class="container">
-    <h2>Want the underwriting templates?</h2>
-    <p>Every number, every framework, every market.</p>
+    <h2>Explore PadSplit Playbook</h2>
+    <p>Learn about the book and its shared-housing focus.</p>
     <a href="/contact" class="btn btn-secondary">Order the Book</a>
   </div>
 </section>

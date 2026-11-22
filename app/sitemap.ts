@@ -24,6 +24,7 @@ export default function sitemap():MetadataRoute.Sitemap {
     // All current insights changed on this date: original guides were developed
     // earlier today; the remaining templates received provenance/navigation fixes.
     ...(insightRoutes.includes(route) || route === "/insights" ? { lastModified: "2026-11-21" } : {}),
+    ...(["/blog", "/blog/room-by-room-rental-math"].includes(route) ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/blog/padsplit-property-insurance" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/blog/zoning-occupancy-laws-coliving-rentals" ? { lastModified: "2026-11-21" } : {}),
     ...(route === "/guides/shared-kitchen-setup" ? { lastModified: "2026-11-21" } : {}),
