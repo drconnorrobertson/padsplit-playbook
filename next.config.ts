@@ -11,6 +11,8 @@ import { utilityCanonicalSlug, utilityRedirectSlugs } from "./lib/utility-canoni
 import { maintenanceCanonicalSlug, maintenanceRedirectSlugs } from "./lib/maintenance-canonical";
 
 const nextConfig: NextConfig = {
+  // Retirement destinations must win before trailing-slash normalization.
+  skipTrailingSlashRedirect: true,
   async redirects() {
     return [...marketRedirectSlugs.map((slug) => ({
       source: `/insights/${slug}`,
@@ -48,7 +50,11 @@ const nextConfig: NextConfig = {
       source: `/insights/${slug}`,
       destination: `/insights/${propertyFitCanonicalSlug}`,
       permanent: true,
-    }))];
+    })), {
+      source: "/:path+/",
+      destination: "/:path+",
+      permanent: true,
+    }];
   },
   images: {
     remotePatterns: [
