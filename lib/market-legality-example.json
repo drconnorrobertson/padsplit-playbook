@@ -1,0 +1,9 @@
+{
+  "fictional": true,
+  "proposal": "Six separately rented rooms in an existing house; actual use classification and permission unresolved",
+  "records": [
+    {"id":"M1","record":"Zoning map screenshot","scope":"District shown for the candidate parcel","limit":"Does not resolve the proposed use, conditions or current application requirements","nextAction":"Ask the responsible zoning office to identify the applicable use classification and review path for the complete proposal","owner":"Acquisition reviewer","status":"Unresolved"},
+    {"id":"M2","record":"Prior occupancy document","scope":"An earlier configuration and stated use","limit":"Does not establish that the proposed room arrangement is covered","nextAction":"Obtain the complete record and plans; ask the building and zoning offices what the proposed change requires","owner":"Local design professional","status":"Unresolved"},
+    {"id":"M3","record":"Platform market email","scope":"A general invitation to discuss properties in the area","limit":"Does not grant address-specific government, contract or insurance approval","nextAction":"Keep platform eligibility separate and request written answers from each decision-maker for the actual address and operation","owner":"Operator","status":"Unresolved"}
+  ]
+}
