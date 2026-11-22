@@ -1,0 +1,5 @@
+fictional,record_id,record,evidence_gap,next_request,suggested_owner,status
+true,T1,Closing statement with one combined purchase figure,No supported land/building allocation or prior-use history,"Obtain acquisition documents, allocation support and prior-use facts",Owner and tax preparer,Unresolved
+true,T2,Furniture receipt paid October 4; readiness note dated October 20,Payment and availability dates differ; asset detail and rental-use share are not established,"Obtain itemized inventory, readiness evidence and use history",Operator and tax preparer,Unresolved
+true,T3,Contractor invoice labeled interior conversion,"Lump sum does not identify components, scope or completion dates","Obtain line-item scope, invoices and completion records before classification",Contractor and owner,Unresolved
+true,T4,Weekly payment ledger and a calendar of management tasks,Billing does not establish average stay length or qualifying participation,Collect occupancy start/end dates and descriptions and hours of actual work,Operator and tax preparer,Unresolved
